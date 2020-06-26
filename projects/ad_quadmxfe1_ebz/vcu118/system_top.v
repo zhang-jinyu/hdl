@@ -86,8 +86,8 @@ module system_top (
 
   output        adrf5020_ctrl,
 
-  input   [4:0] fpga_clk_m2c_n,
-  input   [4:0] fpga_clk_m2c_p,
+  input   [2:0] fpga_clk_m2c_n,
+  input   [2:0] fpga_clk_m2c_p,
   input         fpga_clk_m2c_0_replica_n,
   input         fpga_clk_m2c_0_replica_p,
   output        fpga_sysref_c2m_n,
@@ -99,10 +99,10 @@ module system_top (
   output [15:0] c2m_p,
   input  [15:0] m2c_n,
   input  [15:0] m2c_p,
-  output  [3:0] mxfe_sync1_inb_n,
-  output  [3:0] mxfe_sync1_inb_p,
-  input   [3:0] mxfe_sync1_outb_n,
-  input   [3:0] mxfe_sync1_outb_p,
+  output  [3:0] mxfe_syncin_n,
+  output  [7:0] mxfe_syncin_p,
+  input   [3:0] mxfe_syncout_n,
+  input   [7:0] mxfe_syncout_p,
 
   inout         hmc7043_gpio,
   output        hmc7043_reset,
@@ -110,7 +110,7 @@ module system_top (
   inout         hmc7043_sdata,
   output        hmc7043_slen,
 
-  output  [6:1] hmc425a_v,
+  output  [4:1] hmc425a_v,
 
   output        ext_hmc7044_sclk,
   output        ext_hmc7044_slen,
@@ -129,10 +129,10 @@ module system_top (
   output  [3:0] mxfe_tx_en0,
   output  [3:0] mxfe_tx_en1,
 
-  inout  [10:0] mxfe0_gpio,
-  inout  [10:0] mxfe1_gpio,
-  inout  [10:0] mxfe2_gpio,
-  inout  [10:0] mxfe3_gpio,
+  inout  [8:0] mxfe0_gpio,
+  inout  [8:0] mxfe1_gpio,
+  inout  [8:0] mxfe2_gpio,
+  inout  [8:0] mxfe3_gpio,
 
   input  ext_sync,
 
@@ -172,8 +172,7 @@ module system_top (
   wire            spi_3_mosi;
   wire            spi_3_miso;
 
-  wire    [3:0]   ref_clk;
-  wire    [3:0]   ref_clk_odiv2;
+  wire            ref_clk;
   wire            sysref;
   wire    [3:0]   tx_syncin;
   wire    [3:0]   rx_syncout;
@@ -193,32 +192,39 @@ module system_top (
   genvar i;
   generate
   for(i=0;i<=3;i=i+1) begin : g_buffers
-
-  IBUFDS_GTE4 i_ibufds_ref_clk (
-    .CEB (1'd0),
-    .I (fpga_clk_m2c_p[i]),
-    .IB (fpga_clk_m2c_n[i]),
-    .O (ref_clk[i]),
-    .ODIV2 (ref_clk_odiv2[i]));
-
   IBUFDS i_ibufds_syncin (
-    .I (mxfe_sync1_outb_p[i]),
-    .IB (mxfe_sync1_outb_n[i]),
+    .I (mxfe_syncout_p[2*i+1]),
+    .IB (mxfe_syncout_n[i]),
     .O (tx_syncin[i]));
 
   OBUFDS i_obufds_syncout (
     .I (rx_syncout[i]),
-    .O (mxfe_sync1_inb_p[i]),
-    .OB (mxfe_sync1_inb_n[i]));
+    .O (mxfe_syncin_p[2*i+1]),
+    .OB (mxfe_syncin_n[i]));
 
   end
   endgenerate
+
+  // Loopback SYNC0 
+  assign mxfe_syncin_p[0] = mxfe_syncout_p[0];
+  assign mxfe_syncin_p[2] = mxfe_syncout_p[2];
+  assign mxfe_syncin_p[4] = mxfe_syncout_p[4];
+  assign mxfe_syncin_p[6] = mxfe_syncout_p[6];
+
+
+
+  IBUFDS_GTE4 i_ibufds_ref_clk (
+    .CEB (1'd0),
+    .I (fpga_clk_m2c_p[0]),
+    .IB (fpga_clk_m2c_n[0]),
+    .O (ref_clk),
+    .ODIV2 ());
 
   IBUFDS_GTE4 i_ibufds_ref_clk_replica (
     .CEB (1'd0),
     .I (fpga_clk_m2c_0_replica_p),
     .IB (fpga_clk_m2c_0_replica_n),
-    .O (ref_clk_0_replica),
+    .O (ref_clk_replica),
     .ODIV2 ());
 
   IBUFDS i_ibufds_sysref (
@@ -232,18 +238,22 @@ module system_top (
     .I (sysref));
 
   IBUFDS i_ibufds_rx_device_clk (
-    .I (fpga_clk_m2c_p[4]),
-    .IB (fpga_clk_m2c_n[4]),
-    .O (fpga_clk_m2c_4));
-
+    .I (fpga_clk_m2c_p[1]),
+    .IB (fpga_clk_m2c_n[1]),
+    .O (fpga_clk_m2c_1));
 
   BUFG i_rx_device_clk (
-    .I (fpga_clk_m2c_4),
+    .I (fpga_clk_m2c_1),
     .O (rx_device_clk)
   );
 
-  BUFG_GT i_tx_device_clk (
-    .I (ref_clk_odiv2[1]),
+  IBUFDS i_ibufds_tx_device_clk (
+    .I (fpga_clk_m2c_p[2]),
+    .IB (fpga_clk_m2c_n[2]),
+    .O (fpga_clk_m2c_2));
+
+  BUFG i_tx_device_clk (
+    .I (fpga_clk_m2c_2),
     .O (tx_device_clk)
   );
 
@@ -315,7 +325,7 @@ module system_top (
 
   assign hmc7043_reset = gpio_o[33];
   assign adrf5020_ctrl = gpio_o[34];
-  assign hmc425a_v     = gpio_o[40:35];
+  assign hmc425a_v     = gpio_o[38:35];
   assign mxfe_reset    = gpio_o[44:41];
   assign mxfe_rx_en0   = gpio_o[48:45];
   assign mxfe_rx_en1   = gpio_o[52:49];
@@ -486,12 +496,12 @@ module system_top (
     .tx_data_14_p (c2m_p[7]),
     .tx_data_15_n (c2m_n[5]),
     .tx_data_15_p (c2m_p[5]),
-    .ref_clk_q0 (ref_clk[0]),
-    .ref_clk_q1 (ref_clk[0]),
-    .ref_clk_q2 (ref_clk_0_replica),
-    .ref_clk_q3 (ref_clk_0_replica),
+    .ref_clk_q0 (ref_clk),
+    .ref_clk_q1 (ref_clk),
+    .ref_clk_q2 (ref_clk_replica),
+    .ref_clk_q3 (ref_clk_replica),
     .rx_device_clk (rx_device_clk),
-    .tx_device_clk (rx_device_clk), // use same device clock for both links
+    .tx_device_clk (tx_device_clk),
     .rx_sync_0 (rx_syncout),
     .tx_sync_0 (tx_syncin),
     .rx_sysref_0 (sysref),
