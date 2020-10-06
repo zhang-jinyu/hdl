@@ -174,8 +174,10 @@ module system_top (
 
   wire            ref_clk;
   wire            sysref;
-  wire    [3:0]   tx_syncin;
-  wire    [3:0]   rx_syncout;
+  wire    [3:0]   link0_tx_syncin;
+  wire    [3:0]   link0_rx_syncout;
+  wire    [3:0]   link1_tx_syncin;
+  wire    [3:0]   link1_rx_syncout;
 
   wire            fpga_clk_m2c_4;
   wire            device_clk;
@@ -189,29 +191,34 @@ module system_top (
   assign iic_rstn = 1'b1;
 
   // instantiations
+
+  // Link 1 SYNC differential lines
   genvar i;
   generate
   for(i=0;i<=3;i=i+1) begin : g_buffers
   IBUFDS i_ibufds_syncin (
     .I (mxfe_syncout_p[2*i+1]),
     .IB (mxfe_syncout_n[i]),
-    .O (tx_syncin[i]));
+    .O (link1_tx_syncin[i]));
 
   OBUFDS i_obufds_syncout (
-    .I (rx_syncout[i]),
+    .I (link1_rx_syncout[i]),
     .O (mxfe_syncin_p[2*i+1]),
     .OB (mxfe_syncin_n[i]));
 
   end
   endgenerate
 
-  // Loopback SYNC0 
-  assign mxfe_syncin_p[0] = mxfe_syncout_p[0];
-  assign mxfe_syncin_p[2] = mxfe_syncout_p[2];
-  assign mxfe_syncin_p[4] = mxfe_syncout_p[4];
-  assign mxfe_syncin_p[6] = mxfe_syncout_p[6];
+  // Link 0 SYNC single ended lines 
+  assign mxfe_syncin_p[0] = link0_rx_syncout[0];
+  assign mxfe_syncin_p[2] = link0_rx_syncout[1];
+  assign mxfe_syncin_p[4] = link0_rx_syncout[2];
+  assign mxfe_syncin_p[6] = link0_rx_syncout[3];
 
-
+  assign link0_tx_syncin[0] = mxfe_syncout_p[0];
+  assign link0_tx_syncin[1] = mxfe_syncout_p[2];
+  assign link0_tx_syncin[2] = mxfe_syncout_p[4];
+  assign link0_tx_syncin[3] = mxfe_syncout_p[6];
 
   IBUFDS_GTE4 i_ibufds_ref_clk (
     .CEB (1'd0),
@@ -502,8 +509,8 @@ module system_top (
     .ref_clk_q3 (ref_clk_replica),
     .rx_device_clk (rx_device_clk),
     .tx_device_clk (tx_device_clk),
-    .rx_sync_0 (rx_syncout),
-    .tx_sync_0 (tx_syncin),
+    .rx_sync_0 (link0_rx_syncout),
+    .tx_sync_0 (link0_tx_syncin),
     .rx_sysref_0 (sysref),
     .tx_sysref_0 (sysref),
     .dac_fifo_bypass (dac_fifo_bypass),
@@ -516,6 +523,7 @@ module system_top (
     .ext_sync (ext_sync_at_sysref)
   );
 
+  assign link1_rx_syncout = 4'b1111;
 
   // TODO : change this with sysref edge from the link layer
   reg sysref_ms = 1'b0;
