@@ -12,6 +12,7 @@ source $ad_hdl_dir/projects/scripts/adi_board.tcl
 #    e.g.
 #      make JESD_MODE=8B10B  RX_JESD_L=4 RX_JESD_M=8 TX_JESD_L=4 TX_JESD_M=8
 #      make JESD_MODE=64B66B RX_JESD_L=2 RX_JESD_M=8 TX_JESD_L=4 TX_JESD_M=16 
+#      make JESD_MODE=64B66B RX_RATE=24.75 TX_RATE=24.75 REF_CLK_RATE=250 RX_JESD_M=4 RX_JESD_L=4 RX_JESD_S=2 RX_JESD_NP=12 TX_JESD_M=4 TX_JESD_L=4 TX_JESD_S=2 TX_JESD_NP=12 RX_PLL_SEL=1 TX_PLL_SEL=1
 #
 #  RX_RATE,TX_RATE,REF_CLK_RATE used only in 64B66B mode
 #
@@ -32,6 +33,8 @@ adi_project ad_quadmxfe1_ebz_vcu118 0 [list \
   JESD_MODE    [get_env_param JESD_MODE    64B66B ] \
   RX_RATE      [get_env_param RX_RATE      16.5 ] \
   TX_RATE      [get_env_param TX_RATE      16.5 ] \
+  RX_PLL_SEL   [get_env_param RX_PLL_SEL   2 ] \
+  TX_PLL_SEL   [get_env_param TX_PLL_SEL   2 ] \
   REF_CLK_RATE [get_env_param REF_CLK_RATE 250 ] \
   RX_JESD_M    [get_env_param RX_JESD_M    8 ] \
   RX_JESD_L    [get_env_param RX_JESD_L    2 ] \

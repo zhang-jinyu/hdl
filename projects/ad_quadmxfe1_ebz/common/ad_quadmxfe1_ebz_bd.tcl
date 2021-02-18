@@ -1,3 +1,6 @@
+
+source $ad_hdl_dir/library/jesd204/scripts/jesd204.tcl
+
 # Common parameter for TX and RX
 set JESD_MODE  $ad_project_params(JESD_MODE) 
 
@@ -34,7 +37,9 @@ set RX_NUM_OF_CONVERTERS [expr $RX_JESD_M * $RX_NUM_OF_LINKS]
 set RX_SAMPLES_PER_FRAME $RX_JESD_S
 set RX_SAMPLE_WIDTH      $RX_JESD_NP
 
-set RX_SAMPLES_PER_CHANNEL [expr $RX_NUM_OF_LANES * 8*$DATAPATH_WIDTH / ($RX_NUM_OF_CONVERTERS * $RX_SAMPLE_WIDTH)]
+set RX_DATAPATH_WIDTH [adi_jesd204_calc_tpl_width $RX_JESD_L $RX_JESD_M $RX_JESD_S $RX_JESD_NP]
+
+set RX_SAMPLES_PER_CHANNEL [expr $RX_NUM_OF_LANES * 8*$RX_DATAPATH_WIDTH / ($RX_NUM_OF_CONVERTERS * $RX_SAMPLE_WIDTH)]
 
 
 # TX parameters
@@ -51,19 +56,20 @@ set TX_NUM_OF_CONVERTERS [expr $TX_JESD_M * $TX_NUM_OF_LINKS]
 set TX_SAMPLES_PER_FRAME $TX_JESD_S
 set TX_SAMPLE_WIDTH      $TX_JESD_NP
 
-set TX_SAMPLES_PER_CHANNEL [expr $TX_NUM_OF_LANES * 8*$DATAPATH_WIDTH / ($TX_NUM_OF_CONVERTERS * $TX_SAMPLE_WIDTH)] 
+set TX_DATAPATH_WIDTH [adi_jesd204_calc_tpl_width $TX_JESD_L $TX_JESD_M $TX_JESD_S $TX_JESD_NP]
 
-source $ad_hdl_dir/library/jesd204/scripts/jesd204.tcl
+set TX_SAMPLES_PER_CHANNEL [expr $TX_NUM_OF_LANES * 8*$TX_DATAPATH_WIDTH / ($TX_NUM_OF_CONVERTERS * $TX_SAMPLE_WIDTH)] 
+
 
 set adc_fifo_name mxfe_adc_fifo
-set adc_data_width [expr 8*$DATAPATH_WIDTH*$RX_NUM_OF_LANES]
-set adc_dma_data_width [expr 8*$DATAPATH_WIDTH*$RX_NUM_OF_LANES]
+set adc_data_width [expr $RX_DMA_SAMPLE_WIDTH*$RX_NUM_OF_CONVERTERS*$RX_SAMPLES_PER_CHANNEL]
+set adc_dma_data_width $adc_data_width
 set adc_fifo_address_width [expr int(ceil(log(($adc_fifo_samples_per_converter*$RX_NUM_OF_CONVERTERS) / ($adc_data_width/$RX_SAMPLE_WIDTH))/log(2)))]
 
 
 set dac_fifo_name mxfe_dac_fifo
-set dac_data_width [expr 8*$DATAPATH_WIDTH*$TX_NUM_OF_LANES]
-set dac_dma_data_width [expr 8*$DATAPATH_WIDTH*$TX_NUM_OF_LANES]
+set dac_data_width [expr $TX_DMA_SAMPLE_WIDTH*$TX_NUM_OF_CONVERTERS*$TX_SAMPLES_PER_CHANNEL]
+set dac_dma_data_width $dac_data_width
 set dac_fifo_address_width [expr int(ceil(log(($dac_fifo_samples_per_converter*$TX_NUM_OF_CONVERTERS) / ($dac_data_width/$TX_SAMPLE_WIDTH))/log(2)))]
 
 create_bd_port -dir I rx_device_clk
@@ -135,10 +141,10 @@ ad_ip_instance jesd204_phy jesd204_phy_121_122 [list \
   GT_Line_Rate $tx_rate \
   GT_REFCLK_FREQ $ref_clk_rate \
   DRPCLK_FREQ {50} \
-  C_PLL_SELECTION {2} \
+  C_PLL_SELECTION $ad_project_params(TX_PLL_SEL) \
   RX_GT_Line_Rate $rx_rate \
   RX_GT_REFCLK_FREQ $ref_clk_rate \
-  RX_PLL_SELECTION {2} \
+  RX_PLL_SELECTION $ad_project_params(RX_PLL_SEL) \
   GT_Location {X0Y8} \
   Tx_JesdVersion {1} \
   Rx_JesdVersion {1} \
@@ -154,10 +160,10 @@ ad_ip_instance jesd204_phy jesd204_phy_125_126 [list \
   GT_Line_Rate $tx_rate \
   GT_REFCLK_FREQ $ref_clk_rate \
   DRPCLK_FREQ {50} \
-  C_PLL_SELECTION {2} \
+  C_PLL_SELECTION $ad_project_params(TX_PLL_SEL) \
   RX_GT_Line_Rate $rx_rate \
   RX_GT_REFCLK_FREQ $ref_clk_rate \
-  RX_PLL_SELECTION {2} \
+  RX_PLL_SELECTION $ad_project_params(RX_PLL_SEL) \
   GT_Location {X0Y24} \
   Tx_JesdVersion {1} \
   Rx_JesdVersion {1} \
@@ -173,6 +179,7 @@ ad_ip_instance jesd204_phy jesd204_phy_125_126 [list \
 # adc peripherals
 
 adi_axi_jesd204_rx_create axi_mxfe_rx_jesd $RX_NUM_OF_LANES $RX_NUM_OF_LINKS $ENCODER_SEL
+ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.TPL_DATA_PATH_WIDTH $RX_DATAPATH_WIDTH
 
 ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.SYSREF_IOB false
 ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.NUM_INPUT_PIPELINE 1
@@ -181,7 +188,9 @@ adi_tpl_jesd204_rx_create rx_mxfe_tpl_core $RX_NUM_OF_LANES \
                                            $RX_NUM_OF_CONVERTERS \
                                            $RX_SAMPLES_PER_FRAME \
                                            $RX_SAMPLE_WIDTH \
-                                           $DATAPATH_WIDTH
+                                           $RX_DATAPATH_WIDTH \
+                                           $RX_DMA_SAMPLE_WIDTH
+
 
 ad_ip_instance util_cpack2 util_mxfe_cpack [list \
   NUM_OF_CHANNELS $RX_NUM_OF_CONVERTERS \
@@ -211,6 +220,7 @@ ad_ip_instance axi_dmac axi_mxfe_rx_dma [list \
 
 
 adi_axi_jesd204_tx_create axi_mxfe_tx_jesd $TX_NUM_OF_LANES $TX_NUM_OF_LINKS $ENCODER_SEL
+ad_ip_parameter axi_mxfe_tx_jesd/tx CONFIG.TPL_DATA_PATH_WIDTH $TX_DATAPATH_WIDTH
 
 ad_ip_parameter axi_mxfe_tx_jesd/tx CONFIG.SYSREF_IOB false
 
@@ -219,7 +229,8 @@ adi_tpl_jesd204_tx_create tx_mxfe_tpl_core $TX_NUM_OF_LANES \
                                            $TX_NUM_OF_CONVERTERS \
                                            $TX_SAMPLES_PER_FRAME \
                                            $TX_SAMPLE_WIDTH \
-                                           $DATAPATH_WIDTH
+                                           $TX_DATAPATH_WIDTH \
+                                           $TX_DMA_SAMPLE_WIDTH
 
 ad_ip_parameter tx_mxfe_tpl_core/dac_tpl_core CONFIG.IQCORRECTION_DISABLE 0
 ad_ip_parameter tx_mxfe_tpl_core/dac_tpl_core CONFIG.XBAR_ENABLE 1
