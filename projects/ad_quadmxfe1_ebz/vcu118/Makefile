@@ -8,6 +8,7 @@ PROJECT_NAME := ad_quadmxfe1_ebz_vcu118
 M_DEPS += timing_constr.xdc
 M_DEPS += ../common/quad_mxfe_gpio_mux.v
 M_DEPS += ../common/ad_quadmxfe1_ebz_bd.tcl
+M_DEPS += ../../scripts/adi_pd.tcl
 M_DEPS += ../../common/xilinx/dacfifo_bd.tcl
 M_DEPS += ../../common/xilinx/adcfifo_bd.tcl
 M_DEPS += ../../common/vcu118/vcu118_system_constr.xdc

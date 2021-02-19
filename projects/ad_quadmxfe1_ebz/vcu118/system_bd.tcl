@@ -9,6 +9,7 @@ source $ad_hdl_dir/projects/common/vcu118/vcu118_system_bd.tcl
 source $ad_hdl_dir/projects/common/xilinx/adcfifo_bd.tcl
 source $ad_hdl_dir/projects/common/xilinx/dacfifo_bd.tcl
 source ../common/ad_quadmxfe1_ebz_bd.tcl
+source $ad_hdl_dir/projects/scripts/adi_pd.tcl
 
 # Set SPI clock to 100/16 =  6.25 MHz
 ad_ip_parameter axi_spi CONFIG.C_SCK_RATIO 16
