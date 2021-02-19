@@ -334,7 +334,7 @@ for {set i 0}  {$i < $RX_NUM_OF_LINKS} {incr i} {
   }
 }
 
-ad_xcvrcon  util_mxfe_xcvr axi_mxfe_rx_xcvr axi_mxfe_rx_jesd $lane_map rx_device_clk
+ad_xcvrcon  util_mxfe_xcvr axi_mxfe_rx_xcvr axi_mxfe_rx_jesd $lane_map {} rx_device_clk
 
 
 # connections (dac)
@@ -352,7 +352,7 @@ for {set i 0}  {$i < $TX_NUM_OF_LINKS} {incr i} {
   }
 }
 
-ad_xcvrcon  util_mxfe_xcvr axi_mxfe_tx_xcvr axi_mxfe_tx_jesd $lane_map tx_device_clk
+ad_xcvrcon  util_mxfe_xcvr axi_mxfe_tx_xcvr axi_mxfe_tx_jesd $lane_map {} tx_device_clk
 
 } else {
 
@@ -363,15 +363,39 @@ ad_connect  ref_clk_q2 jesd204_phy_125_126/cpll_refclk
 ad_connect  ref_clk_q2 jesd204_phy_125_126/qpll0_refclk
 ad_connect  ref_clk_q2 jesd204_phy_125_126/qpll1_refclk
 
-# device clock domain
-ad_connect  tx_device_clk jesd204_phy_121_122/tx_core_clk
-ad_connect  tx_device_clk jesd204_phy_125_126/tx_core_clk
+# link clock domain
+
+ad_ip_instance util_ds_buf txoutclk_BUFG_GT
+ad_ip_parameter txoutclk_BUFG_GT CONFIG.C_BUF_TYPE {BUFG_GT}
+ad_connect txoutclk_BUFG_GT/BUFG_GT_CE VCC
+ad_connect txoutclk_BUFG_GT/BUFG_GT_CEMASK GND
+ad_connect txoutclk_BUFG_GT/BUFG_GT_CLR GND
+ad_connect txoutclk_BUFG_GT/BUFG_GT_CLRMASK GND
+ad_connect txoutclk_BUFG_GT/BUFG_GT_DIV GND
+ad_connect jesd204_phy_121_122/txoutclk txoutclk_BUFG_GT/BUFG_GT_I
+
+set tx_link_clock  txoutclk_BUFG_GT/BUFG_GT_O
+
+ad_ip_instance util_ds_buf rxoutclk_BUFG_GT
+ad_ip_parameter rxoutclk_BUFG_GT CONFIG.C_BUF_TYPE {BUFG_GT}
+ad_connect rxoutclk_BUFG_GT/BUFG_GT_CE VCC
+ad_connect rxoutclk_BUFG_GT/BUFG_GT_CEMASK GND
+ad_connect rxoutclk_BUFG_GT/BUFG_GT_CLR GND
+ad_connect rxoutclk_BUFG_GT/BUFG_GT_CLRMASK GND
+ad_connect rxoutclk_BUFG_GT/BUFG_GT_DIV GND
+ad_connect jesd204_phy_121_122/rxoutclk rxoutclk_BUFG_GT/BUFG_GT_I
+
+set rx_link_clock  rxoutclk_BUFG_GT/BUFG_GT_O
+
+ad_connect  $tx_link_clock jesd204_phy_121_122/tx_core_clk
+ad_connect  $tx_link_clock jesd204_phy_125_126/tx_core_clk
+ad_connect  $tx_link_clock axi_mxfe_tx_jesd/link_clk
 ad_connect  tx_device_clk axi_mxfe_tx_jesd/device_clk
 
-ad_connect  rx_device_clk jesd204_phy_121_122/rx_core_clk
-ad_connect  rx_device_clk jesd204_phy_125_126/rx_core_clk
+ad_connect  $rx_link_clock jesd204_phy_121_122/rx_core_clk
+ad_connect  $rx_link_clock jesd204_phy_125_126/rx_core_clk
+ad_connect  $rx_link_clock axi_mxfe_rx_jesd/link_clk
 ad_connect  rx_device_clk axi_mxfe_rx_jesd/device_clk
-
 }
 
 
@@ -400,11 +424,11 @@ ad_connect  $sys_dma_resetn axi_mxfe_tx_dma/m_src_axi_aresetn
 ad_connect  $sys_dma_reset mxfe_dac_fifo/dma_rst
 
 if {$ADI_PHY_SEL == 0} {
-ad_connect  tx_device_clk_rstgen/peripheral_reset jesd204_phy_121_122/tx_sys_reset
-ad_connect  tx_device_clk_rstgen/peripheral_reset jesd204_phy_125_126/tx_sys_reset
+ad_connect  jesd204_phy_121_122/tx_sys_reset GND
+ad_connect  jesd204_phy_125_126/tx_sys_reset GND
 
-ad_connect  rx_device_clk_rstgen/peripheral_reset jesd204_phy_121_122/rx_sys_reset
-ad_connect  rx_device_clk_rstgen/peripheral_reset jesd204_phy_125_126/rx_sys_reset
+ad_connect  jesd204_phy_121_122/rx_sys_reset GND
+ad_connect  jesd204_phy_125_126/rx_sys_reset GND
 
 
 ad_connect  axi_mxfe_tx_jesd/tx_axi/core_reset jesd204_phy_121_122/tx_reset_gt
