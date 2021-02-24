@@ -433,11 +433,10 @@ ad_connect  jesd204_phy_125_126/tx_sys_reset GND
 ad_connect  jesd204_phy_121_122/rx_sys_reset GND
 ad_connect  jesd204_phy_125_126/rx_sys_reset GND
 
-
-ad_connect  axi_mxfe_tx_jesd/tx_axi/core_reset jesd204_phy_121_122/tx_reset_gt
-ad_connect  axi_mxfe_rx_jesd/rx_axi/core_reset jesd204_phy_121_122/rx_reset_gt
-ad_connect  axi_mxfe_tx_jesd/tx_axi/core_reset jesd204_phy_125_126/tx_reset_gt
-ad_connect  axi_mxfe_rx_jesd/rx_axi/core_reset jesd204_phy_125_126/rx_reset_gt
+ad_connect  axi_mxfe_tx_jesd/tx_axi/device_reset jesd204_phy_121_122/tx_reset_gt
+ad_connect  axi_mxfe_rx_jesd/rx_axi/device_reset jesd204_phy_121_122/rx_reset_gt
+ad_connect  axi_mxfe_tx_jesd/tx_axi/device_reset jesd204_phy_125_126/tx_reset_gt
+ad_connect  axi_mxfe_rx_jesd/rx_axi/device_reset jesd204_phy_125_126/rx_reset_gt
 }
 #
 # connect adc dataflow
