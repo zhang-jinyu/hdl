@@ -192,7 +192,8 @@ adi_axi_jesd204_rx_create axi_mxfe_rx_jesd $RX_NUM_OF_LANES $RX_NUM_OF_LINKS $EN
 ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.TPL_DATA_PATH_WIDTH $RX_DATAPATH_WIDTH
 
 ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.SYSREF_IOB false
-ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.NUM_INPUT_PIPELINE 1
+ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.NUM_INPUT_PIPELINE 2
+ad_ip_parameter axi_mxfe_rx_jesd/rx CONFIG.NUM_OUTPUT_PIPELINE 0
 
 adi_tpl_jesd204_rx_create rx_mxfe_tpl_core $RX_NUM_OF_LANES \
                                            $RX_NUM_OF_CONVERTERS \
@@ -201,6 +202,8 @@ adi_tpl_jesd204_rx_create rx_mxfe_tpl_core $RX_NUM_OF_LANES \
                                            $RX_DATAPATH_WIDTH \
                                            $RX_DMA_SAMPLE_WIDTH
 
+
+ad_ip_parameter rx_mxfe_tpl_core/adc_tpl_core CONFIG.EN_FRAME_ALIGN 0
 
 ad_ip_instance util_cpack2 util_mxfe_cpack [list \
   NUM_OF_CHANNELS $RX_NUM_OF_CONVERTERS \
