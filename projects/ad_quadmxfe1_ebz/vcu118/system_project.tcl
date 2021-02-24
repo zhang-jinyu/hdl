@@ -48,6 +48,7 @@ adi_project ad_quadmxfe1_ebz_vcu118 0 [list \
   TX_NUM_LINKS [get_env_param TX_NUM_LINKS 4 ] \
   RX_KS_PER_CHANNEL [get_env_param RX_KS_PER_CHANNEL 32 ] \
   TX_KS_PER_CHANNEL [get_env_param TX_KS_PER_CHANNEL 16 ] \
+  DAC_TPL_XBAR_ENABLE  [get_env_param DAC_TPL_XBAR_ENABLE 0 ] \
 ]
 
 adi_project_files ad_quadmxfe1_ebz_vcu118 [list \
