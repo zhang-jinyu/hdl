@@ -216,7 +216,6 @@ set_property  -dict {PACKAGE_PIN R29   IOSTANDARD LVCMOS12                      
 
 create_pblock pblock_axi_mem_interconnect
 add_cells_to_pblock [get_pblocks pblock_axi_mem_interconnect] [get_cells -quiet [list i_system_wrapper/system_i/axi_mem_interconnect]]
-add_cells_to_pblock [get_pblocks pblock_axi_mem_interconnect] [get_cells -quiet i_system_wrapper/system_i/axi_mxfe_rx_jesd/rx/inst/mode_64b66b.gen_lane[*].i_lane]]
 resize_pblock [get_pblocks pblock_axi_mem_interconnect] -add {CLOCKREGION_X0Y0:CLOCKREGION_X5Y4}
 
 create_pblock SLR1
