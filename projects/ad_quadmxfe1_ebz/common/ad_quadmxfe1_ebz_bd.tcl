@@ -78,9 +78,9 @@ set adc_fifo_address_width [expr int(ceil(log(($adc_fifo_samples_per_converter*$
 
 
 set dac_fifo_name mxfe_dac_fifo
-set dac_data_width [expr $TX_DMA_SAMPLE_WIDTH*$TX_NUM_OF_CONVERTERS*$TX_SAMPLES_PER_CHANNEL]
-set dac_dma_data_width $dac_data_width
-set dac_fifo_address_width [expr int(ceil(log(($dac_fifo_samples_per_converter*$TX_NUM_OF_CONVERTERS) / ($dac_data_width/$TX_DMA_SAMPLE_WIDTH))/log(2)))]
+set dac_data_width [expr $TX_SAMPLE_WIDTH*$TX_NUM_OF_CONVERTERS*$TX_SAMPLES_PER_CHANNEL]
+set dac_dma_data_width [expr $TX_DMA_SAMPLE_WIDTH*$TX_NUM_OF_CONVERTERS*$TX_SAMPLES_PER_CHANNEL] 
+set dac_fifo_address_width [expr int(ceil(log(($dac_fifo_samples_per_converter*$TX_NUM_OF_CONVERTERS) / ($dac_data_width/$TX_SAMPLE_WIDTH))/log(2)))]
 
 create_bd_port -dir I rx_device_clk
 create_bd_port -dir I tx_device_clk
@@ -244,7 +244,7 @@ adi_tpl_jesd204_tx_create tx_mxfe_tpl_core $TX_NUM_OF_LANES \
                                            $TX_SAMPLES_PER_FRAME \
                                            $TX_SAMPLE_WIDTH \
                                            $TX_DATAPATH_WIDTH \
-                                           $TX_DMA_SAMPLE_WIDTH
+                                           $TX_SAMPLE_WIDTH
 
 ad_ip_parameter tx_mxfe_tpl_core/dac_tpl_core CONFIG.IQCORRECTION_DISABLE 0
 ad_ip_parameter tx_mxfe_tpl_core/dac_tpl_core CONFIG.XBAR_ENABLE $ad_project_params(DAC_TPL_XBAR_ENABLE)
@@ -252,10 +252,17 @@ ad_ip_parameter tx_mxfe_tpl_core/dac_tpl_core CONFIG.XBAR_ENABLE $ad_project_par
 ad_ip_instance util_upack2 util_mxfe_upack [list \
   NUM_OF_CHANNELS $TX_NUM_OF_CONVERTERS \
   SAMPLES_PER_CHANNEL $TX_SAMPLES_PER_CHANNEL \
-  SAMPLE_DATA_WIDTH $TX_DMA_SAMPLE_WIDTH \
+  SAMPLE_DATA_WIDTH $TX_SAMPLE_WIDTH \
 ]
 
-ad_dacfifo_create $dac_fifo_name $dac_data_width $dac_dma_data_width $dac_fifo_address_width
+ad_dacfifo_create $dac_fifo_name $dac_data_width $dac_data_width $dac_fifo_address_width
+
+ad_ip_instance util_pad tx_util_pad [list \
+  NUM_OF_SAMPLES [expr $TX_NUM_OF_CONVERTERS*$TX_SAMPLES_PER_CHANNEL] \
+  IN_BITS_PER_SAMPLE $TX_DMA_SAMPLE_WIDTH \
+  OUT_BITS_PER_SAMPLE $TX_SAMPLE_WIDTH \
+  PADDING_TO_MSB_LSB_N 0 \
+]
 
 ad_ip_instance axi_dmac axi_mxfe_tx_dma [list \
   DMA_TYPE_SRC 0 \
@@ -661,7 +668,8 @@ ad_connect  util_mxfe_upack/s_axis_data mxfe_dac_fifo/dac_data
 # dma to dac fifo
 #
 ad_connect  mxfe_dac_fifo/dma_valid axi_mxfe_tx_dma/m_axis_valid
-ad_connect  mxfe_dac_fifo/dma_data axi_mxfe_tx_dma/m_axis_data
+ad_connect  tx_util_pad/data_out mxfe_dac_fifo/dma_data
+ad_connect  axi_mxfe_tx_dma/m_axis_data tx_util_pad/data_in
 ad_connect  mxfe_dac_fifo/dma_ready axi_mxfe_tx_dma/m_axis_ready
 ad_connect  mxfe_dac_fifo/dma_xfer_req axi_mxfe_tx_dma/m_axis_xfer_req
 ad_connect  mxfe_dac_fifo/dma_xfer_last axi_mxfe_tx_dma/m_axis_last

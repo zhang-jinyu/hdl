@@ -30,6 +30,7 @@ LIB_DEPS += util_adcfifo
 LIB_DEPS += util_dacfifo
 LIB_DEPS += util_pack/util_cpack2
 LIB_DEPS += util_pack/util_upack2
+LIB_DEPS += util_pad
 LIB_DEPS += xilinx/axi_adxcvr
 LIB_DEPS += xilinx/util_adxcvr
 
