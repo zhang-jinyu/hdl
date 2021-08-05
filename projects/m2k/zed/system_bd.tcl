@@ -1,4 +1,5 @@
 source ../../common/zed/zed_system_bd.tcl
+source ../../scripts/adi_pd.tcl
 
 set_property name sys_100m_rstgen [get_bd_cells sys_200m_rstgen]
 set_property -dict [list CONFIG.ASYNC_CLK_REQ_SRC.VALUE_SRC USER CONFIG.ASYNC_CLK_SRC_DEST.VALUE_SRC USER CONFIG.ASYNC_CLK_DEST_REQ.VALUE_SRC USER] [get_bd_cells axi_hdmi_dma]
@@ -35,6 +36,24 @@ foreach rst $video_dma_resets {
   ad_disconnect /sys_cpu_resetn $rst
   ad_connect $rst video_dma_reset/peripheral_aresetn
 }
+
+# create board design
+# default ports
+create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_main_zed
+
+ad_ip_instance axi_iic axi_iic_fmc_zed
+ad_connect axi_iic_fmc_zed/s_axi_aclk sys_ps7/FCLK_CLK0
+ad_connect axi_iic_fmc_zed/s_axi_aresetn sys_rstgen/peripheral_aresetn
+
+# interface connections
+ad_connect  iic_main_zed axi_iic_fmc_zed/iic
+
+# interrupts
+#ad_connect  sys_concat_intc/In7 axi_iic_fmc_zed/iic2intc_irpt
+
+# interconnects
+ad_cpu_interconnect 0x7C5e0000 axi_iic_fmc_zed
+
 
 ad_ip_parameter axi_sysid_0 CONFIG.ROM_ADDR_BITS 9
 ad_ip_parameter rom_sys_0 CONFIG.PATH_TO_FILE "[pwd]/mem_init_sys.txt"
