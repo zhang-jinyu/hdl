@@ -101,7 +101,7 @@ module system_top (
   inout           iic_sda,
   
   inout           iic_m2k_fmc_sda,
-  output          iic_m2k_fmc_scl);
+  inout           iic_m2k_fmc_scl);
 
   // internal signals
 
@@ -225,8 +225,8 @@ module system_top (
     .i2s_sdata_out (i2s_sdata_out),
     .iic_fmc_scl_io (iic_scl),
     .iic_fmc_sda_io (iic_sda),
-    .iic_main_zed_sda_io (iic_m2k_fmc_sda),
-    .iic_main_zed_scl_io (iic_m2k_fmc_scl),
+    .iic_m2k_fmc_sda_io (iic_m2k_fmc_sda),
+    .iic_m2k_fmc_scl_io (iic_m2k_fmc_scl),
     .iic_mux_scl_i (iic_mux_scl_i_s),
     .iic_mux_scl_o (iic_mux_scl_o_s),
     .iic_mux_scl_t (iic_mux_scl_t_s),

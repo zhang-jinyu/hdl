@@ -39,20 +39,18 @@ foreach rst $video_dma_resets {
 
 # create board design
 # default ports
-create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_main_zed
+create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_m2k_fmc
 
-ad_ip_instance axi_iic axi_iic_fmc_zed
-ad_connect axi_iic_fmc_zed/s_axi_aclk sys_ps7/FCLK_CLK0
-ad_connect axi_iic_fmc_zed/s_axi_aresetn sys_rstgen/peripheral_aresetn
+ad_ip_instance axi_iic axi_iic_m2k_fmc
 
 # interface connections
-ad_connect  iic_main_zed axi_iic_fmc_zed/iic
+ad_connect  iic_m2k_fmc axi_iic_m2k_fmc/iic
 
 # interrupts
-#ad_connect  sys_concat_intc/In7 axi_iic_fmc_zed/iic2intc_irpt
+ad_cpu_interrupt ps-7 mb-17 axi_iic_m2k_fmc/iic2intc_irpt
 
 # interconnects
-ad_cpu_interconnect 0x7C5e0000 axi_iic_fmc_zed
+ad_cpu_interconnect 0x7c5e0000 axi_iic_m2k_fmc
 
 
 ad_ip_parameter axi_sysid_0 CONFIG.ROM_ADDR_BITS 9
