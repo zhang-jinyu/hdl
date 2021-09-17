@@ -200,8 +200,6 @@ set_property  -dict {PACKAGE_PIN AW15  IOSTANDARD LVCMOS12                      
 set_property  -dict {PACKAGE_PIN AV15  IOSTANDARD LVCMOS12                       } [get_ports ext_hmc7044_miso          ];  ## 
 
 
-set_property  -dict {PACKAGE_PIN R32  IOSTANDARD LVCMOS18                       } [get_ports ext_sync                   ]; ## IO_L11P_T1U_N8_GC_45_R32 
-
 # PMOD1 calibration board connector
 set_property  -dict {PACKAGE_PIN N28   IOSTANDARD LVCMOS12                      } [get_ports pmod1_adc_sync_n           ]; ## PMOD1_0 J53.1
 set_property  -dict {PACKAGE_PIN M30   IOSTANDARD LVCMOS12                      } [get_ports pmod1_adc_sdi              ]; ## PMOD1_1 J53.3

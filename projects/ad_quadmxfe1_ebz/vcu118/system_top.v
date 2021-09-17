@@ -134,8 +134,6 @@ module system_top (
   inout  [8:0] mxfe2_gpio,
   inout  [8:0] mxfe3_gpio,
 
-  input  ext_sync,
-
   // PMOD1 for calibration board 
   output pmod1_adc_sync_n,
   output pmod1_adc_sdi,
@@ -520,42 +518,10 @@ module system_top (
     .gpio3_i (gpio_i[127:96]),
     .gpio3_o (gpio_o[127:96]),
     .gpio3_t (gpio_t[127:96]),
-    .ext_sync (ext_sync_at_sysref)
+    .ext_sync (sysref)
   );
 
   assign link1_rx_syncout = 4'b1111;
-
-  // TODO : change this with sysref edge from the link layer
-  reg sysref_ms = 1'b0;
-  reg sysref_noms = 1'b0;
-  reg sysref_noms_d1 = 1'b0;
-  reg sync_pendign = 1'b0;  
-
-  wire sysref_edge;
-  assign sysref_edge = sysref_noms & ~sysref_noms_d1;
-
-  always @(posedge rx_device_clk) begin
-    sysref_ms <= sysref;
-    sysref_noms <= sysref_ms;
-    sysref_noms_d1 <= sysref_noms;
-    ext_sync_ms <= ext_sync;
-    ext_sync_noms <= ext_sync_ms;
-    ext_sync_noms_d1 <= ext_sync_noms;
-  end
-
-  wire ext_sync_edge;
-  assign ext_sync_edge = ext_sync_noms & ~ext_sync_noms_d1;
-  
-  // assumption is the ext_sync is not edge aligned with sysref
-  always @(posedge rx_device_clk) begin
-    if (ext_sync_edge) begin
-      sync_pendign <= 1'b1;
-    end else if (sysref_edge) begin
-      sync_pendign <= 1'b0;
-    end
-  end  
-
-  assign ext_sync_at_sysref = sync_pendign &  sysref_edge;
 
 endmodule
 
