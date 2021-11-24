@@ -5,7 +5,6 @@ source $ad_hdl_dir/projects/scripts/adi_board.tcl
 
 adi_project adaq8092_fmc_zed
 adi_project_files adaq8092_fmc_zed [list \
-  "../common/adaq8092_spi.v" \
   "system_top.v" \
   "system_constr.xdc" \
   "$ad_hdl_dir/library/common/ad_iobuf.v" \
