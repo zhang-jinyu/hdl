@@ -2,10 +2,8 @@
 # adaq8092
 
 create_bd_port -dir I adc_clk_in_n
-create_bd_port -dir I adc_data_or_p
-create_bd_port -dir I adc_data_or_n
-create_bd_port -dir I -from 12 -to 0 adc_data_in_n
-create_bd_port -dir I -from 12 -to 0 adc_data_in_p
+create_bd_port -dir I -from 13 -to 0 adc_data_in_n
+create_bd_port -dir I -from 13 -to 0 adc_data_in_p
 
 # adc peripheral
 
@@ -28,8 +26,6 @@ ad_connect    adc_clk_in_p     axi_adaq8092/adc_clk_in_p
 ad_connect    adc_clk_in_n     axi_adaq8092/adc_clk_in_n
 ad_connect    adc_data_in_n    axi_adaq8092/adc_data_in_n
 ad_connect    adc_data_in_p    axi_adaq8092/adc_data_in_p
-ad_connect    adc_data_or_p    axi_adaq8092/adc_or_in_p
-ad_connect    adc_data_or_n    axi_adaq8092/adc_or_in_n
 
 ad_connect adaq8092_clk axi_adaq8092/adc_clk
 

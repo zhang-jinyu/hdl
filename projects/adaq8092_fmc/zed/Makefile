@@ -6,7 +6,6 @@
 
 PROJECT_NAME := adaq8092_fmc_zed
 
-M_DEPS += ../common/adaq8092_spi.v
 M_DEPS += ../common/adaq8092_bd.tcl
 M_DEPS += ../../scripts/adi_pd.tcl
 M_DEPS += ../../common/zed/zed_system_constr.xdc
