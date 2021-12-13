@@ -85,6 +85,20 @@ module axi_ad9783_channel #(
   wire    [15:0]   dac_pat_data_1_s;
   wire    [15:0]   dac_pat_data_2_s;
   wire    [ 3:0]   dac_data_sel_s;
+  
+  reg     [15:0]  dac_test_data0 = 'd0;
+  reg     [15:0]  dac_test_counter = 'd0;
+
+
+  // ramp function
+  function [23:0] ramp;
+    input [23:0] din;
+    reg   [23:0] dout;
+    begin
+      dout = din + 'h4;
+      ramp = dout;
+    end
+  endfunction
 
   // dac data select
 
@@ -97,6 +111,18 @@ module axi_ad9783_channel #(
         dac_data2 <= dma_data[47:32];
         dac_data3 <= dma_data[63:48];
       end
+      4'h3: begin
+        dac_data0 <= 16'h0;
+        dac_data1 <= 16'h0;
+        dac_data2 <= 16'h0;
+        dac_data3 <= 16'h0;
+      end
+      4'h6: begin
+        dac_data0 <= dac_test_data0[15:0];
+        dac_data1 <= dac_test_data0[15:0];
+        dac_data2 <= dac_test_data0[15:0];
+        dac_data3 <= dac_test_data0[15:0];
+      end
       default: begin
         dac_data0 <= dac_dds_data_s[15: 0];
         dac_data1 <= dac_dds_data_s[31:16];
@@ -104,6 +130,20 @@ module axi_ad9783_channel #(
         dac_data3 <= dac_dds_data_s[63:48];
       end
     endcase
+  end
+
+  always @(posedge dac_div_clk) begin
+    if(dac_data_sel_s != 6) begin
+      dac_test_data0 <= 16'hffff;
+	  
+      dac_test_counter <= 16'h0;
+    end else if (dac_test_counter == 1024) begin
+      dac_test_data0 <= 16'h0;
+    end else begin
+      dac_test_data0 <= ramp(dac_test_data0);
+	  
+      dac_test_counter <= dac_test_counter + 1;
+    end
   end
 
   // dds
