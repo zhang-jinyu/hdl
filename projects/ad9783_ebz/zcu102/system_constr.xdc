@@ -4,7 +4,7 @@
 
 # dac_clk_in_p
 set_property  -dict {PACKAGE_PIN  AA7   IOSTANDARD LVDS DIFF_TERM_ADV TERM_100} [get_ports dco1_p]            ; ## H04  FMC_HPC0_CLK0_M2C_P
-# dac_clk_in_n 
+# dac_clk_in_n
 set_property  -dict {PACKAGE_PIN  AA6   IOSTANDARD LVDS DIFF_TERM_ADV TERM_100} [get_ports dco1_n]            ; ## H05  FMC_HPC0_CLK0_M2C_N
 # dac_clk_out_p
 set_property  -dict {PACKAGE_PIN  Y4    IOSTANDARD LVDS} [get_ports dci_p]                                    ; ## G6   FMC_HPC0_LA00_CC_P
@@ -44,10 +44,10 @@ set_property  -dict {PACKAGE_PIN  AA1   IOSTANDARD LVDS} [get_ports data_n[14]] 
 set_property  -dict {PACKAGE_PIN  T8    IOSTANDARD LVDS} [get_ports data_p[15]]                               ; ## G2   FMC_HPC0_CLK1_M2C_P
 set_property  -dict {PACKAGE_PIN  R8    IOSTANDARD LVDS} [get_ports data_n[15]]                               ; ## G3   FMC_HPC0_CLK1_M2C_N
 
-set_property  -dict {PACKAGE_PIN  D21   IOSTANDARD LVCMOS33} [get_ports spi_clk]                              ; ## IO_L9P_AD3P_47
-set_property  -dict {PACKAGE_PIN  C22   IOSTANDARD LVCMOS33} [get_ports spi_dio]                              ; ## IO_L9N_AD3N_47
-set_property  -dict {PACKAGE_PIN  C21   IOSTANDARD LVCMOS33} [get_ports spi_do]                               ; ## IO_L10P_AD2P_47
-set_property  -dict {PACKAGE_PIN  B21   IOSTANDARD LVCMOS33} [get_ports spi_en]                               ; ## IO_L10N_AD2N_47
+set_property  -dict {PACKAGE_PIN  B21   IOSTANDARD LVCMOS33} [get_ports spi_clk]                              ; ## IO_L10N_AD2N_47
+set_property  -dict {PACKAGE_PIN  C21   IOSTANDARD LVCMOS33} [get_ports spi_dio]                              ; ## IO_L10P_AD2P_47
+set_property  -dict {PACKAGE_PIN  C22   IOSTANDARD LVCMOS33} [get_ports spi_do]                               ; ## IO_L9N_AD3N_47
+set_property  -dict {PACKAGE_PIN  D21   IOSTANDARD LVCMOS33} [get_ports spi_en]                               ; ## IO_L9P_AD3P_47
 
 # clocks
 
