@@ -120,8 +120,8 @@ module axi_ad9783_channel #(
       4'h9: begin
         dac_data0 <= dac_prbs_data[15:0];
         dac_data1 <= dac_prbs_data[23:8];
-        dac_data2 <= ~dac_prbs_data[15:0];
-        dac_data3 <= ~dac_prbs_data[23:8];
+        dac_data2 <= dac_prbs_data[15:0];
+        dac_data3 <= dac_prbs_data[23:8];
       end
       default: begin
         dac_data0 <= dac_dds_data_s[15: 0];
