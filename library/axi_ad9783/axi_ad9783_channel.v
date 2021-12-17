@@ -86,13 +86,7 @@ module axi_ad9783_channel #(
   wire    [15:0]   dac_pat_data_2_s;
   wire    [ 3:0]   dac_data_sel_s;
 
-  reg     [15:0]  dac_test_data0 = 'd0;
-  reg     [15:0]  dac_test_counter = 'd0;
-
-  reg     [23:0]  dac_prbs_data0 = 'd0;
-  reg     [23:0]  dac_prbs_data1 = 'd0;
-  reg     [23:0]  dac_prbs_data2 = 'd0;
-  reg     [23:0]  dac_prbs_data3 = 'd0;
+  reg     [23:0]  dac_prbs_data = 'd0;
   reg     [15:0]  dac_prbs_counter = 'd0;
 
 
@@ -123,17 +117,11 @@ module axi_ad9783_channel #(
         dac_data2 <= 16'h0;
         dac_data3 <= 16'h0;
       end
-      4'h6: begin
-        dac_data0 <= dac_test_data0[15:0];
-        dac_data1 <= dac_test_data0[15:0];
-        dac_data2 <= dac_test_data0[15:0];
-        dac_data3 <= dac_test_data0[15:0];
-      end
       4'h9: begin
-        dac_data0 <= dac_prbs_data0[15:0];
-        dac_data1 <= dac_prbs_data0[23:8];
-        dac_data2 <= ~dac_data0[15:0];
-        dac_data3 <= ~dac_data1[15:0];
+        dac_data0 <= dac_prbs_data[15:0];
+        dac_data1 <= dac_prbs_data[23:8];
+        dac_data2 <= ~dac_prbs_data[15:0];
+        dac_data3 <= ~dac_prbs_data[23:8];
       end
       default: begin
         dac_data0 <= dac_dds_data_s[15: 0];
@@ -145,26 +133,14 @@ module axi_ad9783_channel #(
   end
 
   always @(posedge dac_div_clk) begin
-    if(dac_data_sel_s != 6) begin
-      dac_test_data0 <= 16'h0;
-      dac_test_counter <= 16'h0;
-    end else if (dac_test_counter == 4096) begin
-      dac_test_data0 <= 16'h0;
-    end else begin
-      dac_test_data0 <= dac_test_data0 + 16'h4;
-      dac_test_counter <= dac_test_counter + 1;
-    end
-  end
-
-  always @(posedge dac_div_clk) begin
     if(dac_data_sel_s != 9) begin
-      dac_prbs_data0 <= 16'hffff;
+      dac_prbs_data <= 24'hffffff;
       dac_prbs_counter <= 16'h0;
     end else begin
 	  if (dac_prbs_counter == 4096) begin
-        dac_prbs_data0 <= 16'h0;
+        dac_prbs_data <= 24'h0;
       end else begin
-        dac_prbs_data0 <= pn23(dac_prbs_data0);
+        dac_prbs_data <= pn23(dac_prbs_data);
         dac_prbs_counter <= dac_prbs_counter + 1;
       end
     end
