@@ -103,7 +103,25 @@ create_bd_cell -type module -reference sync_bits busy_sync
 create_bd_cell -type module -reference ad_edge_detect busy_capture
 set_property -dict [list CONFIG.EDGE 1] [get_bd_cells busy_capture]
 
+
+  create_bd_cell -type module -reference sync_bits busy_sync
+  create_bd_cell -type module -reference ad_edge_detect busy_capture
+  set_property -dict [list CONFIG.EDGE 1] [get_bd_cells busy_capture]
+
+
+#ad_connect odr_inv/res dual_ad7134/odr
+#ad_connect odr_inv/op1 ad713x_odr
+
 ad_connect odr_generator/pwm_0 ad713x_odr
+
+ad_connect axi_ad7134_clkgen/clk_0 busy_capture/clk
+ad_connect axi_ad7134_clkgen/clk_0 busy_sync/out_clk
+ad_connect busy_capture/rst GND
+ad_connect dual_ad7134/axi/spi_resetn busy_sync/out_resetn
+
+ad_connect ad713x_odr busy_sync/in_bits
+ad_connect busy_sync/out_bits busy_capture/signal_in
+ad_connect busy_capture/signal_out dual_ad7134/odr
 
 ad_connect axi_ad7134_clkgen/clk_0 busy_capture/clk
 ad_connect axi_ad7134_clkgen/clk_0 busy_sync/out_clk
