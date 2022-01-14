@@ -45,12 +45,12 @@ module axi_adaq8092_channel #(
 
   input                   adc_clk,
   input                   adc_rst,
-  input       [15:0]      adc_data,
+  input       [13:0]      adc_data,
   input                   adc_or,
 
   // channel interface
 
-  output      [15:0]      adc_dcfilter_data_out,
+  output      [13:0]      adc_dcfilter_data_out,
   output                  adc_valid,
   output                  adc_enable,
   output                  up_adc_pn_err,
@@ -73,13 +73,13 @@ module axi_adaq8092_channel #(
 
   // internal signals
 
-  wire    [15:0]  adc_dfmt_data_s;
+  wire    [13:0]  adc_dfmt_data_s;
   wire            adc_dcfilt_enb_s;
   wire            adc_dfmt_se_s;
   wire            adc_dfmt_type_s;
   wire            adc_dfmt_enable_s;
-  wire    [15:0]  adc_dcfilt_offset_s;
-  wire    [15:0]  adc_dcfilt_coeff_s;
+  wire    [13:0]  adc_dcfilt_offset_s;
+  wire    [13:0]  adc_dcfilt_coeff_s;
   wire    [ 3:0]  adc_pnseq_sel_s;
   wire            adc_pn_err_s;
   wire            adc_pn_oos_s;
@@ -97,7 +97,7 @@ module axi_adaq8092_channel #(
   if (DATAPATH_DISABLE == 1) begin
   assign adc_dfmt_data_s = adc_data;
   end else begin
-  ad_datafmt #(.DATA_WIDTH(16)) i_ad_datafmt (
+  ad_datafmt #(.DATA_WIDTH(14)) i_ad_datafmt (
     .clk (adc_clk),
     .valid (1'b1),
     .data (adc_data),
@@ -163,8 +163,8 @@ module axi_adaq8092_channel #(
     .adc_usr_datatype_be (1'b0),
     .adc_usr_datatype_signed (1'b1),
     .adc_usr_datatype_shift (8'd0),
-    .adc_usr_datatype_total_bits (8'd16),
-    .adc_usr_datatype_bits (8'd16),
+    .adc_usr_datatype_total_bits (8'd14),
+    .adc_usr_datatype_bits (8'd14),
     .adc_usr_decimation_m (16'd1),
     .adc_usr_decimation_n (16'd1),
     .up_rstn (up_rstn),
