@@ -97,10 +97,15 @@ module system_top (
 
   input                   adc_clk_in_n,
   input                   adc_clk_in_p,
-  input       [13:0]      adc_data_in_n,
-  input       [13:0]      adc_data_in_p,
-  input                   adc_data_or_n,
-  input                   adc_data_or_p,
+  
+  input       [13:0]      adc_data_in1,
+  input       [13:0]      adc_data_in2,
+  
+  
+  
+  input                   adc_data_or_1,
+  input                   adc_data_or_2,
+  
   output                  adc_par_ser,
   output                  adc_pd1,
   output                  adc_pd2,
@@ -140,7 +145,7 @@ ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
   .dio_i (gpio_o[14:0]),
   .dio_o (gpio_i[14:0]),
   .dio_t (gpio_t[14:0]),
-  .dio_p (gpio_bd));
+  .dio_p (gpio_bd[14:0]));
 
 assign gpio_i[63:15] = gpio_o[63:15];
 
@@ -190,10 +195,11 @@ system_wrapper i_system_wrapper (
     .otg_vbusoc (otg_vbusoc),
     .adc_clk_in_n(adc_clk_in_n),
     .adc_clk_in_p(adc_clk_in_p),
-    .adc_data_in_n(adc_data_in_n),
-    .adc_data_in_p(adc_data_in_p),
-    .adc_data_or_n(adc_data_or_n),
-    .adc_data_or_p(adc_data_or_p),
+    .adc_data_in1(adc_data_in1),
+    .adc_data_in2(adc_data_in2),
+   
+    .adc_data_or_1(adc_data_or_1),
+    .adc_data_or_2(adc_data_or_2),
     .spi0_clk_i (spi0_clk),
     .spi0_clk_o (spi0_clk),
     .spi0_csn_0_o (spi0_csn[0]),
