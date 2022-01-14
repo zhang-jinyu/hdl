@@ -43,16 +43,21 @@ module axi_adaq8092 #(
   parameter SPEED_GRADE = 0,
   parameter DEV_PACKAGE = 0,
   parameter ADC_DATAPATH_DISABLE = 0,
-  parameter IO_DELAY_GROUP = "adc_if_delay_group") (
+  parameter IO_DELAY_GROUP = "adc_if_delay_group",
+  parameter FDR = 0,
+  parameter SINGLE_ENDED = 0) (
 
   // adc interface (clk, data, over-range)
 
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
-  input       [ 13:0]     adc_data_in_p,
-  input       [ 13:0]     adc_data_in_n,
-  input                   adc_or_in_p,
-  input                   adc_or_in_n,
+
+  input       [ 13:0]     adc_data_in1,
+  input       [ 13:0]     adc_data_in2,
+
+
+  input                   adc_or_in_1,
+  input                   adc_or_in_2,
 
   // delay interface
 
@@ -63,8 +68,9 @@ module axi_adaq8092 #(
   output                  adc_clk,
   output                  adc_rst,
   output                  adc_valid,
-  output                  adc_enable,
-  output      [15:0]      adc_data,
+  output                  adc_enable_1,
+  output                  adc_enable_2,
+  output      [31:0]      adc_data,
   input                   adc_dovf,
 
   // axi interface
@@ -100,7 +106,7 @@ module axi_adaq8092 #(
   reg     [31:0]  up_rdata = 'd0;
   reg             up_wack = 'd0;
   reg             up_rack = 'd0;
-
+ 
   // internal clocks & resets
 
   wire            up_rstn;
@@ -109,20 +115,23 @@ module axi_adaq8092 #(
 
   // internal signals
 
-  wire    [15:0]  adc_data_s;
+  
   wire            adc_or_s;
-  wire            up_status_pn_err_s;
-  wire            up_status_pn_oos_s;
-  wire            up_status_or_s;
+  wire   [13:0]   adc_data_s [0:1];
+
+  wire    [1:0]   up_status_pn_err_s;  //2 CHANNELS 
+  wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
+  wire    [1:0]   up_status_or_s;      //2 CHANNELS
   wire            adc_status_s;
   wire    [14:0]  up_dld_s;
   wire    [74:0]  up_dwdata_s;
   wire    [74:0]  up_drdata_s;
   wire            delay_locked_s;
   wire    [13:0]  up_raddr_s;
-  wire    [31:0]  up_rdata_s[0:2];
-  wire            up_rack_s[0:2];
-  wire            up_wack_s[0:2];
+  wire    [31:0]  up_rdata_s[0:3];     //2 CHANNELS
+  wire    [3:0]   up_rack_s ;          //2 CHANNELS
+  wire    [3:0]   up_wack_s;           //2 CHANNELS
+ 
   wire            up_wreq_s;
   wire    [13:0]  up_waddr_s;
   wire    [31:0]  up_wdata_s;
@@ -147,28 +156,31 @@ module axi_adaq8092 #(
       up_status_pn_err <= up_status_pn_err_s;
       up_status_pn_oos <= up_status_pn_oos_s;
       up_status_or <= up_status_or_s;
-      up_rdata <= up_rdata_s[0] | up_rdata_s[1] | up_rdata_s[2];
-      up_rack <= up_rack_s[0] | up_rack_s[1] | up_rack_s[2];
-      up_wack <= up_wack_s[0] | up_wack_s[1] | up_wack_s[2];
+      up_rdata <= up_rdata_s[0] | up_rdata_s[1] | up_rdata_s[2] | up_rdata_s[3];
+      up_rack <=   up_rack_s[0] | up_rack_s[1]  | up_rack_s[2]  | up_rack_s[3];
+      up_wack <=   up_wack_s[0] | up_wack_s[1]  | up_wack_s[2]  | up_wack_s[3];
+      
     end
   end
 
-  // channel
+  // channel 
 
+
+  // ADC channel 1  
   axi_adaq8092_channel #(
-    .CHANNEL_ID(0),
+    .CHANNEL_ID(1),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
-  i_channel (
+  i_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
-    .adc_data (adc_data_s),
+    .adc_data (adc_data_s[0]),
     .adc_or (adc_or_s),
-    .adc_dcfilter_data_out (adc_data),
-    .adc_enable (adc_enable),
+    .adc_dcfilter_data_out (adc_data[13:0]),
+    .adc_enable (adc_enable_1),
     .adc_valid (adc_valid),
-    .up_adc_pn_err (up_status_pn_err_s),
-    .up_adc_pn_oos (up_status_pn_oos_s),
-    .up_adc_or (up_status_or_s),
+    .up_adc_pn_err (up_status_pn_err_s[0]),
+    .up_adc_pn_oos (up_status_pn_oos_s[0]),
+    .up_adc_or (up_status_or_s[0]),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_wreq (up_wreq_s),
@@ -180,21 +192,49 @@ module axi_adaq8092 #(
     .up_rdata (up_rdata_s[0]),
     .up_rack (up_rack_s[0]));
 
+
+// ADC channel 2  
+   axi_adaq8092_channel #(
+    .CHANNEL_ID(2),
+    .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
+  i_channel_2 (
+    .adc_clk (adc_clk),
+    .adc_rst (adc_rst),
+    .adc_data (adc_data_s[1]),
+    .adc_or (adc_or_s),
+    .adc_dcfilter_data_out (adc_data[27:14]),
+    .adc_enable (adc_enable_2),
+    .adc_valid (adc_valid),
+    .up_adc_pn_err (up_status_pn_err_s[1]),
+    .up_adc_pn_oos (up_status_pn_oos_s[1]),
+    .up_adc_or (up_status_or_s[1]),
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_wreq (up_wreq_s),
+    .up_waddr (up_waddr_s),
+    .up_wdata (up_wdata_s),
+    .up_wack (up_wack_s[1]),
+    .up_rreq (up_rreq_s),
+    .up_raddr (up_raddr_s),
+    .up_rdata (up_rdata_s[1]),
+    .up_rack (up_rack_s[1]));
+
   // main (device interface)
 
   axi_adaq8092_if #(
+    .FDR(FDR),
+    .SINGLE_ENDED(SINGLE_ENDED),
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .IO_DELAY_GROUP (IO_DELAY_GROUP))
   i_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
-    .adc_data_in_p (adc_data_in_p),
-    .adc_data_in_n (adc_data_in_n),
-    .adc_or_in_p (adc_or_in_p),
-    .adc_or_in_n (adc_or_in_n),
+    .adc_data_in ({adc_data_in2,adc_data_in1}),
+    .adc_or_in_1 (adc_or_in_1),
+    .adc_or_in_2 (adc_or_in_2),
     .adc_clk (adc_clk),
-    .adc_data (adc_data_s),
-    .adc_or (adc_or_s),
+    .adc_data({adc_data_s[1],adc_data_s[0]}),
+    .adc_or(adc_or_s),
     .adc_status (adc_status_s),
     .up_clk (up_clk),
     .up_dld (up_dld_s),
@@ -275,11 +315,11 @@ module axi_adaq8092 #(
     .up_wreq (up_wreq_s),
     .up_waddr (up_waddr_s),
     .up_wdata (up_wdata_s),
-    .up_wack (up_wack_s[1]),
+    .up_wack (up_wack_s[3]),
     .up_rreq (up_rreq_s),
     .up_raddr (up_raddr_s),
-    .up_rdata (up_rdata_s[1]),
-    .up_rack (up_rack_s[1]));
+    .up_rdata (up_rdata_s[3]),
+    .up_rack (up_rack_s[3]));
 
   // up bus interface
 

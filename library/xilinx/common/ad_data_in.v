@@ -40,6 +40,7 @@ module ad_data_in #(
   // parameters
 
   parameter   SINGLE_ENDED = 0,
+  parameter   FDR = 0,
   parameter   FPGA_TECHNOLOGY = 0,
   parameter   IODELAY_ENABLE = 1,
   parameter   IODELAY_CTRL = 0,
@@ -185,7 +186,7 @@ module ad_data_in #(
   // iddr
 
   generate
-  if ((FPGA_TECHNOLOGY == ULTRASCALE) || (FPGA_TECHNOLOGY == ULTRASCALE_PLUS)) begin
+  if ((FPGA_TECHNOLOGY == ULTRASCALE) || (FPGA_TECHNOLOGY == ULTRASCALE_PLUS) & FDR == 0 ) begin
   IDDRE1 #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
     .R (1'b0),
     .C (rx_clk),
@@ -197,7 +198,7 @@ module ad_data_in #(
   endgenerate
 
   generate
-  if (FPGA_TECHNOLOGY == SEVEN_SERIES) begin
+  if (FPGA_TECHNOLOGY == SEVEN_SERIES & FDR == 0 ) begin
   IDDR #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
     .CE (1'b1),
     .R (1'b0),
@@ -208,6 +209,16 @@ module ad_data_in #(
     .Q2 (rx_data_n));
   end
   endgenerate
+
+  generate
+    if ( FDR == 1 & SINGLE_ENDED == 1) begin
+    
+    assign rx_data_p = rx_data_idelay_s; 
+    assign rx_data_p = 1'b0;
+    end
+  endgenerate   
+  
+
 
 endmodule
 
