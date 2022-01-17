@@ -6,13 +6,12 @@
  create_bd_port -dir I adc_data_or_1
  create_bd_port -dir I adc_data_or_2
 
- create_bd_port -dir I -from 13 -to 0 adc_data_in1
- create_bd_port -dir I -from 13 -to 0 adc_data_in2
+ create_bd_port -dir I -from 6 -to 0 adc_data_in1_p
+ create_bd_port -dir I -from 6 -to 0 adc_data_in1_n
+ 
+ create_bd_port -dir I -from 6 -to 0 adc_data_in2_p
+ create_bd_port -dir I -from 6 -to 0 adc_data_in2_n
 
-
- create_bd_port -dir O -type rst adc_rst
- create_bd_port -dir O adc_enable_1
- create_bd_port -dir O adc_enable_2
  # adc peripheral
 
  ad_ip_instance axi_adaq8092 axi_adaq8092
@@ -35,8 +34,13 @@
  ad_connect    adc_clk_in_n     axi_adaq8092/adc_clk_in_n
 
 
- ad_connect    adc_data_in1    axi_adaq8092/adc_data_in1
- ad_connect    adc_data_in2    axi_adaq8092/adc_data_in2
+            
+ad_connect    adc_data_in1_p  axi_adaq8092/adc_data_in1_p
+ad_connect    adc_data_in1_n  axi_adaq8092/adc_data_in1_n
+
+ad_connect    adc_data_in2_p  axi_adaq8092/adc_data_in2_p
+ad_connect    adc_data_in2_n  axi_adaq8092/adc_data_in2_n
+
 
  ad_connect    adc_data_or_1    axi_adaq8092/adc_or_in_1
  ad_connect    adc_data_or_2    axi_adaq8092/adc_or_in_2
@@ -50,9 +54,6 @@
  ad_connect axi_adaq8092/adc_data   axi_adaq8092_dma/fifo_wr_din
  ad_connect axi_adaq8092/adc_dovf   axi_adaq8092_dma/fifo_wr_overflow
 
- ad_connect axi_adaq8092/adc_rst  adc_rst
- ad_connect axi_adaq8092/adc_enable_1 adc_enable_1
- ad_connect axi_adaq8092/adc_enable_2 adc_enable_2
  # address mapping
 
  ad_cpu_interconnect 0x44A00000 axi_adaq8092

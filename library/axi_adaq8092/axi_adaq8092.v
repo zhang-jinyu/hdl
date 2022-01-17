@@ -43,18 +43,19 @@ module axi_adaq8092 #(
   parameter SPEED_GRADE = 0,
   parameter DEV_PACKAGE = 0,
   parameter ADC_DATAPATH_DISABLE = 0,
-  parameter IO_DELAY_GROUP = "adc_if_delay_group",
-  parameter FDR = 0,
-  parameter SINGLE_ENDED = 0) (
+  parameter IO_DELAY_GROUP = "adc_if_delay_group"
+  ) (
 
   // adc interface (clk, data, over-range)
 
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
 
-  input       [ 13:0]     adc_data_in1,
-  input       [ 13:0]     adc_data_in2,
-
+  input       [ 6:0]     adc_data_in1_p,
+  input       [ 6:0]     adc_data_in1_n,
+ 
+  input       [ 6:0]     adc_data_in2_p,
+  input       [ 6:0]     adc_data_in2_n,
 
   input                   adc_or_in_1,
   input                   adc_or_in_2,
@@ -175,7 +176,7 @@ module axi_adaq8092 #(
     .adc_rst (adc_rst),
     .adc_data (adc_data_s[0]),
     .adc_or (adc_or_s),
-    .adc_dcfilter_data_out (adc_data[13:0]),
+    .adc_dcfilter_data_out (adc_data[15:0]),
     .adc_enable (adc_enable_1),
     .adc_valid (adc_valid),
     .up_adc_pn_err (up_status_pn_err_s[0]),
@@ -202,7 +203,7 @@ module axi_adaq8092 #(
     .adc_rst (adc_rst),
     .adc_data (adc_data_s[1]),
     .adc_or (adc_or_s),
-    .adc_dcfilter_data_out (adc_data[27:14]),
+    .adc_dcfilter_data_out (adc_data[31:16]),
     .adc_enable (adc_enable_2),
     .adc_valid (adc_valid),
     .up_adc_pn_err (up_status_pn_err_s[1]),
@@ -222,14 +223,13 @@ module axi_adaq8092 #(
   // main (device interface)
 
   axi_adaq8092_if #(
-    .FDR(FDR),
-    .SINGLE_ENDED(SINGLE_ENDED),
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .IO_DELAY_GROUP (IO_DELAY_GROUP))
   i_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
-    .adc_data_in ({adc_data_in2,adc_data_in1}),
+    .adc_data_in_p ({adc_data_in2_p,adc_data_in1_p}),
+    .adc_data_in_n ({adc_data_in2_n,adc_data_in1_n}),
     .adc_or_in_1 (adc_or_in_1),
     .adc_or_in_2 (adc_or_in_2),
     .adc_clk (adc_clk),
