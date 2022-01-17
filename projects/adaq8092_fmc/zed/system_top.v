@@ -98,15 +98,18 @@ module system_top (
   input                   adc_clk_in_n,
   input                   adc_clk_in_p,
   
-  input       [13:0]      adc_data_in1,
-  input       [13:0]      adc_data_in2,
+  input       [6:0]      adc_data_in1_p,
+  input       [6:0]      adc_data_in1_n,
+  input       [6:0]      adc_data_in2_p,
+  input       [6:0]      adc_data_in2_n,
   
   
   
   input                   adc_data_or_1,
   input                   adc_data_or_2,
+  input                   adc_par_ser,
   
-  output                  adc_par_ser,
+  output                  ldo_1v8_enable,
   output                  adc_pd1,
   output                  adc_pd2,
   output                  spi_clk,
@@ -129,6 +132,17 @@ wire    [ 2:0]  spi1_csn;
 wire            spi1_clk;
 wire            spi1_mosi;
 wire            spi1_miso;
+wire    [ 1:0]  iic_mux_scl_i_s;
+wire    [ 1:0]  iic_mux_scl_o_s;
+wire            iic_mux_scl_t_s;
+wire    [ 1:0]  iic_mux_sda_i_s;
+wire    [ 1:0]  iic_mux_sda_o_s;
+wire            iic_mux_sda_t_s;
+
+
+
+
+
 
 // instantiations
 
@@ -139,7 +153,7 @@ assign spi0_miso = spi_sdo;
 
 assign adc_pd2 = gpio_o[34];
 assign adc_pd1 = gpio_o[33];
-assign adc_par_ser = gpio_o[32];
+//assign ldo_1v8_enable = gpio_o[32];
 
 ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
   .dio_i (gpio_o[14:0]),
@@ -148,6 +162,27 @@ ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
   .dio_p (gpio_bd[14:0]));
 
 assign gpio_i[63:15] = gpio_o[63:15];
+
+
+ad_iobuf #(
+    .DATA_WIDTH(2)
+  ) i_iic_mux_scl (
+    .dio_t({iic_mux_scl_t_s, iic_mux_scl_t_s}),
+    .dio_i(iic_mux_scl_o_s),
+    .dio_o(iic_mux_scl_i_s),
+    .dio_p(iic_mux_scl));
+
+  ad_iobuf #(
+    .DATA_WIDTH(2)
+  ) i_iic_mux_sda (
+    .dio_t({iic_mux_sda_t_s, iic_mux_sda_t_s}),
+    .dio_i(iic_mux_sda_o_s),
+    .dio_o(iic_mux_sda_i_s),
+    .dio_p(iic_mux_sda));
+
+
+
+
 
 system_wrapper i_system_wrapper (
     .ddr_addr (ddr_addr),
@@ -195,9 +230,10 @@ system_wrapper i_system_wrapper (
     .otg_vbusoc (otg_vbusoc),
     .adc_clk_in_n(adc_clk_in_n),
     .adc_clk_in_p(adc_clk_in_p),
-    .adc_data_in1(adc_data_in1),
-    .adc_data_in2(adc_data_in2),
-   
+    .adc_data_in1_p(adc_data_in1_p),
+    .adc_data_in1_n(adc_data_in1_n),
+    .adc_data_in2_p(adc_data_in2_p),
+    .adc_data_in2_n(adc_data_in2_n),
     .adc_data_or_1(adc_data_or_1),
     .adc_data_or_2(adc_data_or_2),
     .spi0_clk_i (spi0_clk),

@@ -50,7 +50,7 @@ module axi_adaq8092_channel #(
 
   // channel interface
 
-  output      [13:0]      adc_dcfilter_data_out,
+  output      [15:0]      adc_dcfilter_data_out,
   output                  adc_valid,
   output                  adc_enable,
   output                  up_adc_pn_err,
@@ -73,13 +73,13 @@ module axi_adaq8092_channel #(
 
   // internal signals
 
-  wire    [13:0]  adc_dfmt_data_s;
+  wire    [15:0]  adc_dfmt_data_s;
   wire            adc_dcfilt_enb_s;
   wire            adc_dfmt_se_s;
   wire            adc_dfmt_type_s;
   wire            adc_dfmt_enable_s;
-  wire    [13:0]  adc_dcfilt_offset_s;
-  wire    [13:0]  adc_dcfilt_coeff_s;
+  wire    [15:0]  adc_dcfilt_offset_s;
+  wire    [15:0]  adc_dcfilt_coeff_s;
   wire    [ 3:0]  adc_pnseq_sel_s;
   wire            adc_pn_err_s;
   wire            adc_pn_oos_s;
