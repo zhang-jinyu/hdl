@@ -109,7 +109,7 @@ module system_top (
   input                   adc_data_or_2,
   input                   adc_par_ser,
   
-  output                  ldo_1v8_enable,
+  
   output                  adc_pd1,
   output                  adc_pd2,
   output                  spi_clk,
@@ -153,6 +153,7 @@ assign spi0_miso = spi_sdo;
 
 assign adc_pd2 = gpio_o[34];
 assign adc_pd1 = gpio_o[33];
+assign gpio_i[32] = adc_par_ser ;
 //assign ldo_1v8_enable = gpio_o[32];
 
 ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
@@ -161,8 +162,8 @@ ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
   .dio_t (gpio_t[14:0]),
   .dio_p (gpio_bd[14:0]));
 
-assign gpio_i[63:15] = gpio_o[63:15];
-
+assign gpio_i[63:33] = gpio_o[63:33];
+assign gpio_i[31:15] = gpio_o[31:15];
 
 ad_iobuf #(
     .DATA_WIDTH(2)

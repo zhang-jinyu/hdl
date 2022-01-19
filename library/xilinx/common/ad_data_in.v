@@ -186,7 +186,7 @@ module ad_data_in #(
 
   generate
   if ((FPGA_TECHNOLOGY == ULTRASCALE) || (FPGA_TECHNOLOGY == ULTRASCALE_PLUS)  ) begin
-  IDDRE1 #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
+  IDDRE1 #(.DDR_CLK_EDGE ("OPPOSITE_EDGE")) i_rx_data_iddr (
     .R (1'b0),
     .C (rx_clk),
     .CB (~rx_clk),
@@ -198,7 +198,7 @@ module ad_data_in #(
 
   generate
   if (FPGA_TECHNOLOGY == SEVEN_SERIES  ) begin
-  IDDR #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
+  IDDR #(.DDR_CLK_EDGE ("OPPOSITE_EDGE")) i_rx_data_iddr (
     .CE (1'b1),
     .R (1'b0),
     .S (1'b0),
