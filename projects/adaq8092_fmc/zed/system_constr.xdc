@@ -49,4 +49,80 @@ set_property -dict {PACKAGE_PIN G15    IOSTANDARD LVCMOS25} [get_ports adc_pd1] 
 set_property -dict {PACKAGE_PIN G16    IOSTANDARD LVCMOS25} [get_ports adc_pd2]                         ; #H23  FMC_LPC_LA19_N
 #set_property -dict {PACKAGE_PIN G16    IOSTANDARD LVCMOS25} [get_ports ldo_1v8_enable]                  ; #D01  PG_C2M 
 # clocks
-create_clock -name adc_clk      -period 9.523 [get_ports adc_clk_in_p]
+create_clock -name adc_clk_adaq      -period 9.523 [get_ports adc_clk_in_p]
+
+
+
+# Input Delay Constraint
+
+set skew_bre            0.6;             # Data invalid before the rising clock edge
+set skew_are            0.6;             # Data invalid after the rising clock edge
+
+set skew_bfe            0.6;             # Data invalid before the falling clock edge
+set skew_afe            0.6;             # Data invalid after the falling clock edge
+
+
+#channel 1 
+
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[0]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[0]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[0]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[0]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[1]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[1]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[1]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[1]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[2]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[2]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[2]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[2]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[3]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[3]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[3]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[3]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[4]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[4]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[4]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[4]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[5]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[5]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[5]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[5]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_p[6]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in1_p[6]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_p[6]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in1_p[6]] -clock_fall -add_delay;
+			   				   
+#channel 2             
+					   
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[0]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[0]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[0]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[0]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[1]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[1]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[1]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[1]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[2]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[2]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[2]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[2]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[3]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[3]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[3]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[3]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[4]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[4]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[4]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[4]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[5]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[5]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[5]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[5]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_p[6]];
+set_input_delay -clock adc_clk_adaq -min -$skew_bre  [get_ports adc_data_in2_p[6]];
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[6]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min -$skew_bfe  [get_ports adc_data_in2_p[6]] -clock_fall -add_delay;
+															  
+
+
