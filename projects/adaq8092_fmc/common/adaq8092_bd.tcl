@@ -6,11 +6,10 @@
  create_bd_port -dir I adc_data_or_1
  create_bd_port -dir I adc_data_or_2
 
- create_bd_port -dir I -from 6 -to 0 adc_data_in1_p
- create_bd_port -dir I -from 6 -to 0 adc_data_in1_n
- 
- create_bd_port -dir I -from 6 -to 0 adc_data_in2_p
- create_bd_port -dir I -from 6 -to 0 adc_data_in2_n
+ create_bd_port -dir I -from 13 -to 0 adc_data_in1
+
+ create_bd_port -dir I -from 13 -to 0 adc_data_in2
+
 
  # adc peripheral
 
@@ -35,11 +34,9 @@
 
 
             
-ad_connect    adc_data_in1_p  axi_adaq8092/adc_data_in1_p
-ad_connect    adc_data_in1_n  axi_adaq8092/adc_data_in1_n
+ad_connect    adc_data_in1  axi_adaq8092/adc_data_in1
+ad_connect    adc_data_in2  axi_adaq8092/adc_data_in2
 
-ad_connect    adc_data_in2_p  axi_adaq8092/adc_data_in2_p
-ad_connect    adc_data_in2_n  axi_adaq8092/adc_data_in2_n
 
 
  ad_connect    adc_data_or_1    axi_adaq8092/adc_or_in_1
@@ -61,9 +58,9 @@ ad_connect    adc_data_in2_n  axi_adaq8092/adc_data_in2_n
 
  # interconnect (adc)
 
- ad_mem_hp2_interconnect $sys_dma_clk sys_ps7/S_AXI_HP2
- ad_mem_hp2_interconnect $sys_dma_clk axi_adaq8092_dma/m_dest_axi
- ad_connect  $sys_dma_resetn axi_adaq8092_dma/m_dest_axi_aresetn
+ ad_mem_hp2_interconnect $sys_cpu_clk sys_ps7/S_AXI_HP2
+ ad_mem_hp2_interconnect $sys_cpu_clk axi_adaq8092_dma/m_dest_axi
+ ad_connect  $sys_cpu_resetn axi_adaq8092_dma/m_dest_axi_aresetn
 
  # interrupts
 

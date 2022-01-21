@@ -51,11 +51,9 @@ module axi_adaq8092 #(
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
 
-  input       [ 6:0]     adc_data_in1_p,
-  input       [ 6:0]     adc_data_in1_n,
- 
-  input       [ 6:0]     adc_data_in2_p,
-  input       [ 6:0]     adc_data_in2_n,
+  input       [ 13:0]     adc_data_in1,
+  input       [ 13:0]     adc_data_in2,
+  
 
   input                   adc_or_in_1,
   input                   adc_or_in_2,
@@ -228,8 +226,7 @@ module axi_adaq8092 #(
   i_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
-    .adc_data_in_p ({adc_data_in2_p,adc_data_in1_p}),
-    .adc_data_in_n ({adc_data_in2_n,adc_data_in1_n}),
+    .adc_data_in ({adc_data_in2,adc_data_in1}),
     .adc_or_in_1 (adc_or_in_1),
     .adc_or_in_2 (adc_or_in_2),
     .adc_clk (adc_clk),
