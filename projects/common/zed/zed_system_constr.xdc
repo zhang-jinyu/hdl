@@ -98,3 +98,4 @@ set_property -dict {PACKAGE_PIN G17 IOSTANDARD LVCMOS25} [get_ports {gpio_bd[31]
 # Define SPI clock
 create_clock -period 40.000 -name spi0_clk [get_pins -hier */EMIOSPI0SCLKO]
 create_clock -period 40.000 -name spi1_clk [get_pins -hier */EMIOSPI1SCLKO]
+
