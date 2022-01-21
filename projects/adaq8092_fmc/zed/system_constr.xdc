@@ -50,7 +50,7 @@ set_property -dict {PACKAGE_PIN G16    IOSTANDARD LVCMOS25} [get_ports adc_pd2] 
 #set_property -dict {PACKAGE_PIN G16    IOSTANDARD LVCMOS25} [get_ports ldo_1v8_enable]                 ; #D01  PG_C2M 
 # clocks
 create_clock -name adc_clk_adaq      -period 9.523 [get_ports adc_clk_in_p]
-d
+
 # Input Delay Constraint
 
 set skew_bre            4.161;               # Data invalid before the rising clock edge
@@ -79,7 +79,13 @@ set_input_delay -clock adc_clk_adaq -min  $skew_bre  [get_ports adc_data_in2_p[*
 set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_p[*]] -clock_fall -add_delay;
 set_input_delay -clock adc_clk_adaq -min  $skew_bfe  [get_ports adc_data_in2_p[*]] -clock_fall -add_delay;
 
-set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in1_n[*]];                       
-set_input_delay -clock adc_clk_adaq -min  $skew_bre  [get_ports adc_data_in1_n[*]];                       
-set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in1_n[*]] -clock_fall -add_delay;															  
-set_input_delay -clock adc_clk_adaq -min  $skew_bfe  [get_ports adc_data_in1_n[*]] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_in2_n[*]];                       
+set_input_delay -clock adc_clk_adaq -min  $skew_bre  [get_ports adc_data_in2_n[*]];                       
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_in2_n[*]] -clock_fall -add_delay;															  
+set_input_delay -clock adc_clk_adaq -min  $skew_bfe  [get_ports adc_data_in2_n[*]] -clock_fall -add_delay;
+
+
+set_input_delay -clock adc_clk_adaq -max  $skew_are  [get_ports adc_data_or_*];                       
+set_input_delay -clock adc_clk_adaq -min  $skew_bre  [get_ports adc_data_or_*];                       
+set_input_delay -clock adc_clk_adaq -max  $skew_afe  [get_ports adc_data_or_*] -clock_fall -add_delay;
+set_input_delay -clock adc_clk_adaq -min  $skew_bfe  [get_ports adc_data_or_*] -clock_fall -add_delay;
