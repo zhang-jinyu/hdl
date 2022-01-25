@@ -60,7 +60,7 @@ ad_connect    adc_data_in2  axi_adaq8092/adc_data_in2
 
  ad_mem_hp2_interconnect $sys_cpu_clk sys_ps7/S_AXI_HP2
  ad_mem_hp2_interconnect $sys_cpu_clk axi_adaq8092_dma/m_dest_axi
- ad_connect  $sys_cpu_resetn axi_adaq8092_dma/m_dest_axi_aresetn
+ ad_connect  $sys_dma_resetn axi_adaq8092_dma/m_dest_axi_aresetn
 
  # interrupts
 

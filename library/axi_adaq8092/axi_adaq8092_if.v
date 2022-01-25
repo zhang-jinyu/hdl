@@ -61,9 +61,9 @@ module axi_adaq8092_if #(
   // delay control signals
 
   input                   up_clk,
-  input       [14:0]      up_dld,
-  input       [74:0]      up_dwdata,
-  output      [74:0]      up_drdata,
+  input       [29:0]      up_dld,
+  input       [149:0]     up_dwdata,
+  output      [149:0]     up_drdata,
   input                   delay_clk,
   input                   delay_rst,
   output                  delay_locked);
@@ -97,10 +97,30 @@ module axi_adaq8092_if #(
                                     
 
       for (l_inst = 0; l_inst <= 27; l_inst = l_inst + 1) begin : cmos_sdr_adc_if  // SDR CMOS INTERFACE 
+      
+// IF IBUF -> IDELAY -> IDDR IS NOT NECESSARY IN ORDER TO INSTANTIATE ad_data_in YOU SHOULD USE:  
+//       IBUF i_rx_data_ibuf (
+//          .I (adc_data_in[l_inst]),
+//          .O (adc_data_s[l_inst]));
 
-        IBUF i_rx_data_ibuf (
-          .I (adc_data_in[l_inst]),
-          .O (adc_data_s[l_inst]));
+        ad_data_in #(
+          .SINGLE_ENDED(1),
+          .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
+          .IODELAY_CTRL (0),
+          .IODELAY_GROUP (IO_DELAY_GROUP),
+          .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
+        i_adc_data (
+          .rx_clk (adc_clk),
+          .rx_data_in_p (adc_data_in[l_inst]),
+          .rx_data_in_n (1'b0),
+          .rx_data_p (adc_data_s[l_inst]),
+          .up_clk (up_clk),
+          .up_dld (up_dld[l_inst]),
+          .up_dwdata (up_dwdata[((l_inst*5)+4):(l_inst*5)]),
+          .up_drdata (up_drdata[((l_inst*5)+4):(l_inst*5)]),
+          .delay_clk (delay_clk),
+          .delay_rst (delay_rst),
+          .delay_locked ());
           
        end
           
@@ -108,13 +128,44 @@ module axi_adaq8092_if #(
 
   // over-range interface
   
-     IBUF i_or_1_ibuf (
-          .I (adc_or_in_1),
-          .O (adc_or_s_1));
-  
-   IBUF i_or_2_ibuf (
-          .I (adc_or_in_2),
-          .O (adc_or_s_2));
+     ad_data_in #(
+    .SINGLE_ENDED(1),
+    .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
+    .IODELAY_CTRL (1),
+    .IODELAY_GROUP (IO_DELAY_GROUP),
+    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
+  i_adc_or_1 (
+    .rx_clk (adc_clk),
+    .rx_data_in_p (adc_or_in_1),
+    .rx_data_in_n (1'b0),
+    .rx_data_p (adc_or_s_1),
+    .up_clk (up_clk),
+    .up_dld (up_dld[28]),
+    .up_dwdata (up_dwdata[144:140]),
+    .up_drdata (up_drdata[144:140]),
+    .delay_clk (delay_clk),
+    .delay_rst (delay_rst),
+    .delay_locked ());
+    
+    
+     ad_data_in #(
+    .SINGLE_ENDED(1),
+    .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
+    .IODELAY_CTRL (1),
+    .IODELAY_GROUP (IO_DELAY_GROUP),
+    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
+  i_adc_or_2 (
+    .rx_clk (adc_clk),
+    .rx_data_in_p (adc_or_in_2),
+    .rx_data_in_n (),
+    .rx_data_p (adc_or_s_2),
+    .up_clk (up_clk),
+    .up_dld (up_dld[29]),
+    .up_dwdata (up_dwdata[149:145]),
+    .up_drdata (up_drdata[149:145]),
+    .delay_clk (delay_clk),
+    .delay_rst (delay_rst),
+    .delay_locked ());
           
   
   // clock

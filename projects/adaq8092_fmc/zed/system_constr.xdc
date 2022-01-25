@@ -58,26 +58,26 @@ create_clock -period 9.523 -name adc_clk_adaq [get_ports adc_clk_in_p]
 # Input Delay Constraint
 
 
-set rise_min    8.923  ;
-set rise_max    9.623  ; 
+set rise_min            4.76;       # period/2 - skew_bre(=0)       
+set rise_max            5.26;       # period/2 + skew_are   
 
 #channel 1
 
-set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports {adc_data_in1[*]}]
-set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports {adc_data_in1[*]}]
-
-
+set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports adc_data_in1[*]]
+set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports adc_data_in1[*]]
 
 
 
 #channel 2
 
-set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports {adc_data_in2[*]}]
-set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports {adc_data_in2[*]}]
+set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports adc_data_in2[*]]
+set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports adc_data_in2[*]]
+
 
 # adc_or
 
-set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports {adc_data_or_*}]
-set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports {adc_data_or_*}]
+set_input_delay -clock adc_clk_adaq -max $rise_max [get_ports adc_data_or_*]
+set_input_delay -clock adc_clk_adaq -min $rise_min [get_ports adc_data_or_*]
+
 
 

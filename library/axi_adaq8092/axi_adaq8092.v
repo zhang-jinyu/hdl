@@ -122,9 +122,9 @@ module axi_adaq8092 #(
   wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
   wire    [1:0]   up_status_or_s;      //2 CHANNELS
   wire            adc_status_s;
-  wire    [14:0]  up_dld_s;
-  wire    [74:0]  up_dwdata_s;
-  wire    [74:0]  up_drdata_s;
+  wire    [29:0]  up_dld_s;
+  wire    [149:0] up_dwdata_s;
+  wire    [149:0] up_drdata_s;
   wire            delay_locked_s;
   wire    [13:0]  up_raddr_s;
   wire    [31:0]  up_rdata_s[0:3];     //2 CHANNELS
@@ -243,7 +243,7 @@ module axi_adaq8092 #(
 
   // adc delay control
 
-  up_delay_cntrl #(.DATA_WIDTH(15), .BASE_ADDRESS(6'h02)) i_delay_cntrl (
+  up_delay_cntrl #(.DATA_WIDTH(30), .BASE_ADDRESS(6'h02)) i_delay_cntrl (
     .delay_clk (delay_clk),
     .delay_rst (delay_rst),
     .delay_locked (delay_locked_s),
