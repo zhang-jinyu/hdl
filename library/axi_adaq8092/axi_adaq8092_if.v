@@ -47,10 +47,10 @@ module axi_adaq8092_if #(
 
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
-  input       [ 13:0]     adc_data_in_p,
-  input       [ 13:0]     adc_data_in_n,
-  input                   adc_or_in_1,
-  input                   adc_or_in_2,
+  input       [ 13:0]     adc_data_in,
+  
+  input                   adc_or_in,
+  
 
   // interface outputs
 
@@ -74,8 +74,8 @@ module axi_adaq8092_if #(
 
   // internal signals
 
-  wire    [ 27:0]  adc_data_p_s;
-  wire    [ 27:0]  adc_data_n_s;
+  wire    [ 13:0]  adc_data_p_s;
+  wire    [ 13:0]  adc_data_n_s;
 
   wire            adc_or_s_1;
   wire            adc_or_s_2;
@@ -86,7 +86,7 @@ module axi_adaq8092_if #(
   begin
     adc_status <= 1'b1;
     adc_or <= adc_or_s_1 | adc_or_s_1;
-          // DDR LVDS INTERFACE
+          // DDR CMOS INTERFACE
     adc_data <= { adc_data_p_s[13], adc_data_n_s[13], adc_data_p_s[12], adc_data_n_s[12], adc_data_p_s[11], adc_data_n_s[11], adc_data_p_s[10], adc_data_n_s[10], adc_data_p_s[9], adc_data_n_s[9], adc_data_p_s[8], adc_data_n_s[8], adc_data_p_s[7], adc_data_n_s[7], adc_data_p_s[6], adc_data_n_s[6], adc_data_p_s[5], adc_data_n_s[5], adc_data_p_s[4], adc_data_n_s[4], adc_data_p_s[3], adc_data_n_s[3], adc_data_p_s[2], adc_data_n_s[2], adc_data_p_s[1], adc_data_n_s[1], adc_data_p_s[0], adc_data_n_s[0]};
    
   
@@ -98,17 +98,18 @@ module axi_adaq8092_if #(
    
                                     
 
-      for (l_inst = 0; l_inst <= 13; l_inst = l_inst + 1) begin : lvds_ddr_adc_if  // DDR LVDS INTERFACE 
+      for (l_inst = 0; l_inst <= 13; l_inst = l_inst + 1) begin : cmos_ddr_adc_if  // DDR CMOS INTERFACE 
 
         ad_data_in #(
+          .SINGLE_ENDED(1),
           .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
           .IODELAY_CTRL (0),
           .IODELAY_GROUP (IO_DELAY_GROUP),
           .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
         i_adc_data (
           .rx_clk (adc_clk),
-          .rx_data_in_p (adc_data_in_p[l_inst]),
-          .rx_data_in_n (adc_data_in_n[l_inst]),
+          .rx_data_in_p (adc_data_in[l_inst]),
+          .rx_data_in_n (1'b0),
           .rx_data_p (adc_data_p_s[l_inst]),
           .rx_data_n (adc_data_n_s[l_inst]),
           .up_clk (up_clk),
@@ -124,14 +125,14 @@ module axi_adaq8092_if #(
 
   // over-range interface
   ad_data_in #(
+    .SINGLE_ENDED(1),
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .IODELAY_CTRL (1),
     .IODELAY_GROUP (IO_DELAY_GROUP),
     .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
   i_adc_or (
     .rx_clk (adc_clk),
-    .rx_data_in_p (adc_or_in_1),
-    .rx_data_in_n (adc_or_in_2),
+    .rx_data_in_p (adc_or_in),
     .rx_data_p (adc_or_s_1),
     .rx_data_n (adc_or_s_2),
     .up_clk (up_clk),

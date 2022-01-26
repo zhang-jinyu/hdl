@@ -98,15 +98,14 @@ module system_top (
   input                   adc_clk_in_n,
   input                   adc_clk_in_p,
   
-  input       [6:0]      adc_data_in1_p,
-  input       [6:0]      adc_data_in1_n,
-  input       [6:0]      adc_data_in2_p,
-  input       [6:0]      adc_data_in2_n,
+  input       [6:0]      adc_data_in1,
+  input       [6:0]      adc_data_in2,
+ 
   
   
   
-  input                   adc_data_or_1,
-  input                   adc_data_or_2,
+  input                   adc_data_or,
+  
   input                   adc_par_ser,
   
   
@@ -231,12 +230,9 @@ system_wrapper i_system_wrapper (
     .otg_vbusoc (otg_vbusoc),
     .adc_clk_in_n(adc_clk_in_n),
     .adc_clk_in_p(adc_clk_in_p),
-    .adc_data_in1_p(adc_data_in1_p),
-    .adc_data_in1_n(adc_data_in1_n),
-    .adc_data_in2_p(adc_data_in2_p),
-    .adc_data_in2_n(adc_data_in2_n),
-    .adc_data_or_1(adc_data_or_1),
-    .adc_data_or_2(adc_data_or_2),
+    .adc_data_in1(adc_data_in1),
+    .adc_data_in2(adc_data_in2),
+    .adc_data_or(adc_data_or),
     .spi0_clk_i (spi0_clk),
     .spi0_clk_o (spi0_clk),
     .spi0_csn_0_o (spi0_csn[0]),
