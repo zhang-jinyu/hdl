@@ -112,6 +112,7 @@ module system_top (
   
   output                  adc_pd1,
   output                  adc_pd2,
+  output                  en_1p8,
   output                  spi_clk,
   output                  spi_csn_adc,
   input                   spi_sdo,
@@ -153,6 +154,7 @@ assign spi0_miso = spi_sdo;
 
 assign adc_pd2 = gpio_o[34];
 assign adc_pd1 = gpio_o[33];
+assign en_1p8 = gpio_o[35];
 assign gpio_i[32] = adc_par_ser;
 
 
