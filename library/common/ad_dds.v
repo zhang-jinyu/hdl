@@ -41,7 +41,7 @@ module ad_dds #(
   parameter DISABLE = 0,
   // range 8-24
   parameter DDS_DW = 16,
-  // range 8-16 (FIX ME)
+  // range 8-32
   parameter PHASE_DW = 16,
   // set 1 for CORDIC or 2 for Polynomial
   parameter DDS_TYPE = 1,
