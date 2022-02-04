@@ -17,6 +17,7 @@ clean:
 	$(MAKE) -C axi_ad5766 clean
 	$(MAKE) -C axi_ad6676 clean
 	$(MAKE) -C axi_ad7616 clean
+	$(MAKE) -C axi_ad7768 clean
 	$(MAKE) -C axi_ad9122 clean
 	$(MAKE) -C axi_ad9144 clean
 	$(MAKE) -C axi_ad9152 clean
@@ -32,6 +33,7 @@ clean:
 	$(MAKE) -C axi_ad9680 clean
 	$(MAKE) -C axi_ad9684 clean
 	$(MAKE) -C axi_ad9739a clean
+	$(MAKE) -C axi_ad9783 clean
 	$(MAKE) -C axi_ad9963 clean
 	$(MAKE) -C axi_adc_decimate clean
 	$(MAKE) -C axi_adc_trigger clean
@@ -141,6 +143,7 @@ lib:
 	$(MAKE) -C axi_ad5766
 	$(MAKE) -C axi_ad6676
 	$(MAKE) -C axi_ad7616
+	$(MAKE) -C axi_ad7768
 	$(MAKE) -C axi_ad9122
 	$(MAKE) -C axi_ad9144
 	$(MAKE) -C axi_ad9152
@@ -156,6 +159,7 @@ lib:
 	$(MAKE) -C axi_ad9680
 	$(MAKE) -C axi_ad9684
 	$(MAKE) -C axi_ad9739a
+	$(MAKE) -C axi_ad9783
 	$(MAKE) -C axi_ad9963
 	$(MAKE) -C axi_adc_decimate
 	$(MAKE) -C axi_adc_trigger
