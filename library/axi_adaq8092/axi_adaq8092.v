@@ -57,8 +57,8 @@ module axi_adaq8092 #(
   input       [ 6:0]     adc_data_in2_p,
   input       [ 6:0]     adc_data_in2_n,
 
-  input                   adc_or_in_1,
-  input                   adc_or_in_2,
+  input                   adc_or_in_p,
+  input                   adc_or_in_n,
 
   // delay interface
 
@@ -169,7 +169,7 @@ module axi_adaq8092 #(
 
   // ADC channel 1  
   axi_adaq8092_channel #(
-    .CHANNEL_ID(1),
+    .CHANNEL_ID(0),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
   i_channel_1 (
     .adc_clk (adc_clk),
@@ -196,7 +196,7 @@ module axi_adaq8092 #(
 
 // ADC channel 2  
    axi_adaq8092_channel #(
-    .CHANNEL_ID(2),
+    .CHANNEL_ID(1),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
   i_channel_2 (
     .adc_clk (adc_clk),
@@ -230,8 +230,8 @@ module axi_adaq8092 #(
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p ({adc_data_in2_p,adc_data_in1_p}),
     .adc_data_in_n ({adc_data_in2_n,adc_data_in1_n}),
-    .adc_or_in_1 (adc_or_in_1),
-    .adc_or_in_2 (adc_or_in_2),
+    .adc_or_in_p (adc_or_in_p),
+    .adc_or_in_n (adc_or_in_n),
     .adc_clk (adc_clk),
     .adc_data({adc_data_s[1],adc_data_s[0]}),
     .adc_or(adc_or_s),

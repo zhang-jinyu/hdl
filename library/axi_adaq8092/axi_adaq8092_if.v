@@ -49,8 +49,8 @@ module axi_adaq8092_if #(
   input                   adc_clk_in_n,
   input       [ 13:0]     adc_data_in_p,
   input       [ 13:0]     adc_data_in_n,
-  input                   adc_or_in_1,
-  input                   adc_or_in_2,
+  input                   adc_or_in_p,
+  input                   adc_or_in_n,
 
   // interface outputs
 
@@ -130,8 +130,8 @@ module axi_adaq8092_if #(
     .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
   i_adc_or (
     .rx_clk (adc_clk),
-    .rx_data_in_p (adc_or_in_1),
-    .rx_data_in_n (adc_or_in_2),
+    .rx_data_in_p (adc_or_in_p),
+    .rx_data_in_n (adc_or_in_n),
     .rx_data_p (adc_or_s_1),
     .rx_data_n (adc_or_s_2),
     .up_clk (up_clk),

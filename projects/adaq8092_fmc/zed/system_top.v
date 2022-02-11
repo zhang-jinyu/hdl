@@ -105,8 +105,8 @@ module system_top (
   
   
   
-  input                   adc_data_or_1,
-  input                   adc_data_or_2,
+  input                   adc_data_or_p,
+  input                   adc_data_or_n,
   input                   adc_par_ser,
   
   
@@ -237,8 +237,8 @@ system_wrapper i_system_wrapper (
     .adc_data_in1_n(adc_data_in1_n),
     .adc_data_in2_p(adc_data_in2_p),
     .adc_data_in2_n(adc_data_in2_n),
-    .adc_data_or_1(adc_data_or_1),
-    .adc_data_or_2(adc_data_or_2),
+    .adc_data_or_p(adc_data_or_p),
+    .adc_data_or_n(adc_data_or_n),
     .spi0_clk_i (spi0_clk),
     .spi0_clk_o (spi0_clk),
     .spi0_csn_0_o (spi0_csn[0]),
