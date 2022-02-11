@@ -25,6 +25,8 @@ adi_ip_files axi_adaq8092 [list \
   "axi_adaq8092_pnmon.v" \
   "axi_adaq8092_if.v" \
   "axi_adaq8092_channel.v" \
+  "axi_adaq8092_apb_decode.v"\
+  "axi_adaq8092_rand_decode.v"\
   "axi_adaq8092.v" ]
 
 adi_ip_properties axi_adaq8092

@@ -51,6 +51,8 @@ module up_adc_channel #(
   input           adc_clk,
   input           adc_rst,
   output          adc_enable,
+  output          adc_abp_enable,
+  output          adc_rand_enable,
   output          adc_iqcor_enb,
   output          adc_dcfilt_enb,
   output          adc_dfmt_se,
@@ -111,6 +113,8 @@ module up_adc_channel #(
   reg             up_adc_dfmt_enable = 'd0;
   reg             up_adc_pn_type = 'd0;
   reg             up_adc_enable = 'd0;
+  reg             up_adc_rand_enable = 'd0;  //adaq8092 output mode 
+  reg             up_adc_abp_enable = 'd0;   //adaq8092 output mode 
   reg             up_adc_pn_err_int = 'd0;
   reg             up_adc_pn_oos_int = 'd0;
   reg             up_adc_or_int = 'd0;
@@ -260,10 +264,14 @@ module up_adc_channel #(
       up_adc_pn_err_int <= 'd0;
       up_adc_pn_oos_int <= 'd0;
       up_adc_or_int <= 'd0;
+      up_adc_rand_enable <= 'd0;
+      up_adc_abp_enable <= 'd0;
     end else begin
       if ((up_wreq_s == 1'b1) && (up_waddr[3:0] == 4'h0)) begin
         up_adc_pn_type <= up_wdata[1];
         up_adc_enable <= up_wdata[0];
+        up_adc_abp_enable <= up_wdata[12];
+        up_adc_rand_enable <= up_wdata[13];
       end
       if (up_adc_pn_err_s == 1'b1) begin
         up_adc_pn_err_int <= 1'b1;
@@ -388,7 +396,7 @@ module up_adc_channel #(
       up_rack_int <= up_rreq_s;
       if (up_rreq_s == 1'b1) begin
         case (up_raddr[3:0])
-          4'h0: up_rdata_int <= { 20'd0, up_adc_lb_enb, up_adc_pn_sel,
+          4'h0: up_rdata_int <= { 18'd0,up_adc_rand_enable, up_adc_abp_enable, up_adc_lb_enb, up_adc_pn_sel,
                                   up_adc_iqcor_enb, up_adc_dcfilt_enb,
                                   1'd0, up_adc_dfmt_se, up_adc_dfmt_type, up_adc_dfmt_enable,
                                   2'd0, up_adc_pn_type, up_adc_enable};
@@ -442,10 +450,12 @@ module up_adc_channel #(
 
   // adc control & status
 
-  up_xfer_cntrl #(.DATA_WIDTH(78)) i_xfer_cntrl (
+  up_xfer_cntrl #(.DATA_WIDTH(80)) i_xfer_cntrl (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
-    .up_data_cntrl ({ up_adc_iqcor_enb,
+    .up_data_cntrl ({ up_adc_abp_enable,
+                      up_adc_rand_enable,
+                      up_adc_iqcor_enb,
                       up_adc_dcfilt_enb,
                       up_adc_dfmt_se,
                       up_adc_dfmt_type,
@@ -460,7 +470,9 @@ module up_adc_channel #(
     .up_xfer_done (),
     .d_rst (adc_rst),
     .d_clk (adc_clk),
-    .d_data_cntrl ({  adc_iqcor_enb,
+    .d_data_cntrl ({  adc_abp_enable,
+                      adc_rand_enable,
+                      adc_iqcor_enb,
                       adc_dcfilt_enb,
                       adc_dfmt_se,
                       adc_dfmt_type,

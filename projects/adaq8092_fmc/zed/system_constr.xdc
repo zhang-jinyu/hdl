@@ -32,8 +32,8 @@ set_property -dict {PACKAGE_PIN K20    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_p
 set_property -dict {PACKAGE_PIN J16    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_in2_p[6]]   ; #H19  FMC_LPC_LA15_P D2_13
 set_property -dict {PACKAGE_PIN J17    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_in2_n[6]]   ; #H20  FMC_LPC_LA15_N D2_14
   
-set_property -dict {PACKAGE_PIN J20    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_or_1]       ; #G18  FMC_LPC_LA16_P
-set_property -dict {PACKAGE_PIN K21    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_or_2]       ; #G19  FMC_LPC_LA16_N
+set_property -dict {PACKAGE_PIN J20    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_or_p]       ; #G18  FMC_LPC_LA16_P
+set_property -dict {PACKAGE_PIN K21    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_ports adc_data_or_n]       ; #G19  FMC_LPC_LA16_N
   
 # spi  
   
