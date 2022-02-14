@@ -74,8 +74,8 @@ module axi_adaq8092_if #(
 
   // internal signals
 
-  wire    [ 27:0]  adc_data_p_s;
-  wire    [ 27:0]  adc_data_n_s;
+  wire    [ 13:0]  adc_data_p_s;
+  wire    [ 13:0]  adc_data_n_s;
 
   wire            adc_or_s_1;
   wire            adc_or_s_2;

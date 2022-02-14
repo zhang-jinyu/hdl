@@ -83,8 +83,10 @@ module axi_adaq8092_channel #(
   wire    [ 3:0]  adc_pnseq_sel_s;
   wire            adc_pn_err_s;
   wire            adc_pn_oos_s;
+  
   wire    [13:0]  adc_decoded_data_s;
   wire    [13:0]  adc_part_decoded_data_s;
+  
   wire            adc_abp_enb_s;
   wire            adc_rand_enb_s;
 
@@ -95,12 +97,12 @@ module axi_adaq8092_channel #(
      .adc_data(adc_data),
      .adc_clk(adc_clk),
      .adc_rand_enb(adc_rand_enb_s),
-     .adc_data_decoded(adc_part_decoded_data_s));
+    .adc_data_decoded(adc_part_decoded_data_s));
             
   axi_adaq8092_apb_decode i_apb (
      .adc_data(adc_part_decoded_data_s),
      .adc_clk(adc_clk),
-     .adc_apb_enb(adc_rand_apb_s),
+     .adc_abp_enb(adc_abp_enb_s),
      .adc_data_decoded(adc_decoded_data_s));
          
   axi_adaq8092_pnmon i_pnmon (
