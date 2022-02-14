@@ -118,7 +118,8 @@ module axi_adaq8092 #(
 
   
   wire            adc_or_s;
-  wire   [13:0]   adc_data_s [0:1];
+  wire   [13:0]   adc_data_s_1;
+  wire   [13:0]   adc_data_s_2;
 
   wire    [1:0]   up_status_pn_err_s;  //2 CHANNELS 
   wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
@@ -174,7 +175,7 @@ module axi_adaq8092 #(
   i_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
-    .adc_data (adc_data_s[0]),
+    .adc_data (adc_data_s_1),
     .adc_or (adc_or_s),
     .adc_dcfilter_data_out (adc_data[15:0]),
     .adc_enable (adc_enable_1),
@@ -201,7 +202,7 @@ module axi_adaq8092 #(
   i_channel_2 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
-    .adc_data (adc_data_s[1]),
+    .adc_data (adc_data_s_2),
     .adc_or (adc_or_s),
     .adc_dcfilter_data_out (adc_data[31:16]),
     .adc_enable (adc_enable_2),
@@ -233,7 +234,7 @@ module axi_adaq8092 #(
     .adc_or_in_p (adc_or_in_p),
     .adc_or_in_n (adc_or_in_n),
     .adc_clk (adc_clk),
-    .adc_data({adc_data_s[1],adc_data_s[0]}),
+    .adc_data({adc_data_s_2,adc_data_s_1}),
     .adc_or(adc_or_s),
     .adc_status (adc_status_s),
     .up_clk (up_clk),
