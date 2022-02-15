@@ -20,6 +20,9 @@ GENERIC_DEPS += axi_adaq8092.v
 GENERIC_DEPS += axi_adaq8092_channel.v
 GENERIC_DEPS += axi_adaq8092_if.v
 GENERIC_DEPS += axi_adaq8092_pnmon.v
+GENERIC_DEPS += axi_adaq8092_rand_decode.v
+GENERIC_DEPS += axi_adaq8092_apb_decode.v
+
 
 XILINX_DEPS += ../xilinx/common/ad_data_clk.v
 XILINX_DEPS += ../xilinx/common/ad_data_in.v
