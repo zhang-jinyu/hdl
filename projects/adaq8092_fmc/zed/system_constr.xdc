@@ -37,11 +37,19 @@ set_property -dict {PACKAGE_PIN K21    IOSTANDARD LVDS_25 DIFF_TERM TRUE} [get_p
   
 # spi  
   
-set_property -dict {PACKAGE_PIN B20    IOSTANDARD LVCMOS25} [get_ports spi_csn_adc]                       ; #D21  FMC_LPC_LA17_N
+set_property -dict {PACKAGE_PIN B20    IOSTANDARD LVCMOS25} [get_ports spi_csn]                           ; #D21  FMC_LPC_LA17_N
 set_property -dict {PACKAGE_PIN D20    IOSTANDARD LVCMOS25} [get_ports spi_clk]                           ; #C22  FMC_LPC_LA18_P
-set_property -dict {PACKAGE_PIN B19    IOSTANDARD LVCMOS25} [get_ports spi_sdi]                           ; #D20  FMC_LPC_LA17_P
-set_property -dict {PACKAGE_PIN C20    IOSTANDARD LVCMOS25} [get_ports spi_sdo]                           ; #C23  FMC_LPC_LA18_N
+set_property -dict {PACKAGE_PIN B19    IOSTANDARD LVCMOS25} [get_ports spi_mosi]                          ; #D20  FMC_LPC_LA17_P
+set_property -dict {PACKAGE_PIN C20    IOSTANDARD LVCMOS25} [get_ports spi_miso]                          ; #C23  FMC_LPC_LA18_N
   
+set_property -dict {PACKAGE_PIN W12    IOSTANDARD LVCMOS33} [get_ports spi_csn_pmod]                      ; #jb1
+set_property -dict {PACKAGE_PIN W11    IOSTANDARD LVCMOS33} [get_ports spi_clk_pmod]                      ; #jb2
+set_property -dict {PACKAGE_PIN V10    IOSTANDARD LVCMOS33} [get_ports spi_mosi_pmod]                     ; #jb3
+set_property -dict {PACKAGE_PIN W8     IOSTANDARD LVCMOS33} [get_ports spi_miso_pmod]                     ; #jb4
+
+
+
+ 
 # other  
   
 set_property -dict {PACKAGE_PIN G20    IOSTANDARD LVCMOS25} [get_ports adc_par_ser]                       ; #G21  FMC_LPC_LA20_P
