@@ -63,10 +63,10 @@ create_clock -name adc_clk_adaq      -period 9.523 [get_ports adc_clk_in_p]
 # Input Delay Constraint
 
 set rise_min            4.761;       # period/2 - skew_bre(=0)       
-set rise_max            5.361;       # period/2 + skew_are       
+set rise_max            5.361;       # period/2 + skew_are(=0.6)       
 
 set fall_min            4.761;       # period/2 - skew_bfe(=0)        
-set fall_max            5.361;       # period/2 - skew_are         
+set fall_max            5.361;       # period/2 - skew_are(=0.6)         
 
 #channel 1 
 

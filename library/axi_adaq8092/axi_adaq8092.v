@@ -170,7 +170,7 @@ module axi_adaq8092 #(
 
   // ADC channel 1  
   axi_adaq8092_channel #(
-    .CHANNEL_ID(1),
+    .CHANNEL_ID(0),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
   i_channel_1 (
     .adc_clk (adc_clk),
@@ -197,7 +197,7 @@ module axi_adaq8092 #(
 
 // ADC channel 2  
    axi_adaq8092_channel #(
-    .CHANNEL_ID(2),
+    .CHANNEL_ID(1),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
   i_channel_2 (
     .adc_clk (adc_clk),

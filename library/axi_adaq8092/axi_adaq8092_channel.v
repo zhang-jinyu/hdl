@@ -114,7 +114,7 @@ module axi_adaq8092_channel #(
 
   generate
   if (DATAPATH_DISABLE == 1) begin
-  assign adc_dfmt_data_s = {2'b0,adc_decoded_data_s};
+  assign adc_dfmt_data_s = {2'b0 , adc_decoded_data_s};
   end else begin
   ad_datafmt #(.DATA_WIDTH(14)) i_ad_datafmt (
     .clk (adc_clk),
@@ -130,12 +130,12 @@ module axi_adaq8092_channel #(
 
   generate
   if (DATAPATH_DISABLE == 1) begin
-  assign adc_dcfilter_data_out = {2'b0,adc_dfmt_data_s};
+  assign adc_dcfilter_data_out = adc_dfmt_data_s;
   end else begin
   ad_dcfilter i_ad_dcfilter (
     .clk (adc_clk),
     .valid (1'b1),
-    .data ({2'b0,adc_dfmt_data_s}),
+    .data (adc_dfmt_data_s),
     .valid_out (adc_valid),
     .data_out (adc_dcfilter_data_out),
     .dcfilt_enb (adc_dcfilt_enb_s),

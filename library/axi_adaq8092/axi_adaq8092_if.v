@@ -93,6 +93,46 @@ module axi_adaq8092_if #(
   end
 
   // data interface
+
+ 
+
+    // instantiate the ILA core inside of a module in the IP (don't need to be the top module)
+
+    my_ila i_ila (
+    .clk(adc_clk),
+    .probe0( adc_data_n_s[0]),
+    .probe1( adc_data_p_s[0]),
+    .probe2( adc_data_n_s[1]),
+    .probe3( adc_data_p_s[1]),
+    .probe4( adc_data_n_s[2]),
+    .probe5( adc_data_p_s[2]),
+    .probe6( adc_data_n_s[3]), 
+    .probe7( adc_data_p_s[3]),
+    .probe8( adc_data_n_s[4]),
+    .probe9( adc_data_p_s[4]),
+    .probe10(adc_data_n_s[5]),
+    .probe11(adc_data_p_s[5]),
+    .probe12(adc_data_n_s[6]),
+    .probe13(adc_data_p_s[6]),
+
+   // .probe14(adc_data_n_s[0]),
+   // .probe15(adc_data_p_s[0]),
+   // .probe16(adc_data_n_s[1]),
+   // .probe17(adc_data_p_s[1]),
+   // .probe18(adc_data_n_s[2]),
+   // .probe19(adc_data_p_s[2]),
+   // .probe20(adc_data_n_s[3]),
+   // .probe21(adc_data_p_s[3]),
+   // .probe22(adc_data_n_s[4]),
+   // .probe23(adc_data_p_s[4]),
+   // .probe24(adc_data_n_s[5]),
+   // .probe25(adc_data_p_s[5]),
+   // .probe26(adc_data_n_s[6]),
+   // .probe27(adc_data_p_s[6]),
+   
+    .probe14(adc_data),
+    .probe15(delay_locked));
+
   
    generate
    
