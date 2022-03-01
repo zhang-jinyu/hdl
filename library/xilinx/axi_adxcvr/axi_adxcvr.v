@@ -615,6 +615,284 @@ module axi_adxcvr #(
   input   [15:0]  up_ch_rdata_15,
   input           up_ch_ready_15,
 
+  output          up_cm_enb_16,
+  output  [11:0]  up_cm_addr_16,
+  output          up_cm_wr_16,
+  output  [15:0]  up_cm_wdata_16,
+  input   [15:0]  up_cm_rdata_16,
+  input           up_cm_ready_16,
+
+  output          up_es_enb_16,
+  output  [11:0]  up_es_addr_16,
+  output          up_es_wr_16,
+  output          up_es_reset_16,
+  output  [15:0]  up_es_wdata_16,
+  input   [15:0]  up_es_rdata_16,
+  input           up_es_ready_16,
+
+  input           up_ch_pll_locked_16,
+  output          up_ch_rst_16,
+  output          up_ch_user_ready_16,
+  input           up_ch_rst_done_16,
+  output          up_ch_prbsforceerr_16,
+  output  [ 3:0]  up_ch_prbssel_16,
+  output          up_ch_prbscntreset_16,
+  input           up_ch_prbserr_16,
+  input           up_ch_prbslocked_16,
+  input   [ 1:0]  up_ch_bufstatus_16,
+  output          up_ch_bufstatus_rst_16,
+  output          up_ch_lpm_dfe_n_16,
+  output  [ 2:0]  up_ch_rate_16,
+  output  [ 1:0]  up_ch_sys_clk_sel_16,
+  output  [ 2:0]  up_ch_out_clk_sel_16,
+  output  [ 4:0]  up_ch_tx_diffctrl_16,
+  output  [ 4:0]  up_ch_tx_postcursor_16,
+  output  [ 4:0]  up_ch_tx_precursor_16,
+  output          up_ch_enb_16,
+  output  [11:0]  up_ch_addr_16,
+  output          up_ch_wr_16,
+  output  [15:0]  up_ch_wdata_16,
+  input   [15:0]  up_ch_rdata_16,
+  input           up_ch_ready_16,
+
+  output          up_es_enb_17,
+  output  [11:0]  up_es_addr_17,
+  output          up_es_wr_17,
+  output          up_es_reset_17,
+  output  [15:0]  up_es_wdata_17,
+  input   [15:0]  up_es_rdata_17,
+  input           up_es_ready_17,
+
+  input           up_ch_pll_locked_17,
+  output          up_ch_rst_17,
+  output          up_ch_user_ready_17,
+  input           up_ch_rst_done_17,
+  output          up_ch_prbsforceerr_17,
+  output  [ 3:0]  up_ch_prbssel_17,
+  output          up_ch_prbscntreset_17,
+  input           up_ch_prbserr_17,
+  input           up_ch_prbslocked_17,
+  input   [ 1:0]  up_ch_bufstatus_17,
+  output          up_ch_bufstatus_rst_17,
+  output          up_ch_lpm_dfe_n_17,
+  output  [ 2:0]  up_ch_rate_17,
+  output  [ 1:0]  up_ch_sys_clk_sel_17,
+  output  [ 2:0]  up_ch_out_clk_sel_17,
+  output  [ 4:0]  up_ch_tx_diffctrl_17,
+  output  [ 4:0]  up_ch_tx_postcursor_17,
+  output  [ 4:0]  up_ch_tx_precursor_17,
+  output          up_ch_enb_17,
+  output  [11:0]  up_ch_addr_17,
+  output          up_ch_wr_17,
+  output  [15:0]  up_ch_wdata_17,
+  input   [15:0]  up_ch_rdata_17,
+  input           up_ch_ready_17,
+
+  output          up_es_enb_18,
+  output  [11:0]  up_es_addr_18,
+  output          up_es_wr_18,
+  output          up_es_reset_18,
+  output  [15:0]  up_es_wdata_18,
+  input   [15:0]  up_es_rdata_18,
+  input           up_es_ready_18,
+
+  input           up_ch_pll_locked_18,
+  output          up_ch_rst_18,
+  output          up_ch_user_ready_18,
+  input           up_ch_rst_done_18,
+  output          up_ch_prbsforceerr_18,
+  output  [ 3:0]  up_ch_prbssel_18,
+  output          up_ch_prbscntreset_18,
+  input           up_ch_prbserr_18,
+  input           up_ch_prbslocked_18,
+  input   [ 1:0]  up_ch_bufstatus_18,
+  output          up_ch_bufstatus_rst_18,
+  output          up_ch_lpm_dfe_n_18,
+  output  [ 2:0]  up_ch_rate_18,
+  output  [ 1:0]  up_ch_sys_clk_sel_18,
+  output  [ 2:0]  up_ch_out_clk_sel_18,
+  output  [ 4:0]  up_ch_tx_diffctrl_18,
+  output  [ 4:0]  up_ch_tx_postcursor_18,
+  output  [ 4:0]  up_ch_tx_precursor_18,
+  output          up_ch_enb_18,
+  output  [11:0]  up_ch_addr_18,
+  output          up_ch_wr_18,
+  output  [15:0]  up_ch_wdata_18,
+  input   [15:0]  up_ch_rdata_18,
+  input           up_ch_ready_18,
+
+  output          up_es_enb_19,
+  output  [11:0]  up_es_addr_19,
+  output          up_es_wr_19,
+  output          up_es_reset_19,
+  output  [15:0]  up_es_wdata_19,
+  input   [15:0]  up_es_rdata_19,
+  input           up_es_ready_19,
+
+  input           up_ch_pll_locked_19,
+  output          up_ch_rst_19,
+  output          up_ch_user_ready_19,
+  input           up_ch_rst_done_19,
+  output          up_ch_prbsforceerr_19,
+  output  [ 3:0]  up_ch_prbssel_19,
+  output          up_ch_prbscntreset_19,
+  input           up_ch_prbserr_19,
+  input           up_ch_prbslocked_19,
+  input   [ 1:0]  up_ch_bufstatus_19,
+  output          up_ch_bufstatus_rst_19,
+  output          up_ch_lpm_dfe_n_19,
+  output  [ 2:0]  up_ch_rate_19,
+  output  [ 1:0]  up_ch_sys_clk_sel_19,
+  output  [ 2:0]  up_ch_out_clk_sel_19,
+  output  [ 4:0]  up_ch_tx_diffctrl_19,
+  output  [ 4:0]  up_ch_tx_postcursor_19,
+  output  [ 4:0]  up_ch_tx_precursor_19,
+  output          up_ch_enb_19,
+  output  [11:0]  up_ch_addr_19,
+  output          up_ch_wr_19,
+  output  [15:0]  up_ch_wdata_19,
+  input   [15:0]  up_ch_rdata_19,
+  input           up_ch_ready_19,
+
+  output          up_cm_enb_20,
+  output  [11:0]  up_cm_addr_20,
+  output          up_cm_wr_20,
+  output  [15:0]  up_cm_wdata_20,
+  input   [15:0]  up_cm_rdata_20,
+  input           up_cm_ready_20,
+
+  output          up_es_enb_20,
+  output  [11:0]  up_es_addr_20,
+  output          up_es_wr_20,
+  output          up_es_reset_20,
+  output  [15:0]  up_es_wdata_20,
+  input   [15:0]  up_es_rdata_20,
+  input           up_es_ready_20,
+
+  input           up_ch_pll_locked_20,
+  output          up_ch_rst_20,
+  output          up_ch_user_ready_20,
+  input           up_ch_rst_done_20,
+  output          up_ch_prbsforceerr_20,
+  output  [ 3:0]  up_ch_prbssel_20,
+  output          up_ch_prbscntreset_20,
+  input           up_ch_prbserr_20,
+  input           up_ch_prbslocked_20,
+  input   [ 1:0]  up_ch_bufstatus_20,
+  output          up_ch_bufstatus_rst_20,
+  output          up_ch_lpm_dfe_n_20,
+  output  [ 2:0]  up_ch_rate_20,
+  output  [ 1:0]  up_ch_sys_clk_sel_20,
+  output  [ 2:0]  up_ch_out_clk_sel_20,
+  output  [ 4:0]  up_ch_tx_diffctrl_20,
+  output  [ 4:0]  up_ch_tx_postcursor_20,
+  output  [ 4:0]  up_ch_tx_precursor_20,
+  output          up_ch_enb_20,
+  output  [11:0]  up_ch_addr_20,
+  output          up_ch_wr_20,
+  output  [15:0]  up_ch_wdata_20,
+  input   [15:0]  up_ch_rdata_20,
+  input           up_ch_ready_20,
+
+  output          up_es_enb_21,
+  output  [11:0]  up_es_addr_21,
+  output          up_es_wr_21,
+  output          up_es_reset_21,
+  output  [15:0]  up_es_wdata_21,
+  input   [15:0]  up_es_rdata_21,
+  input           up_es_ready_21,
+
+  input           up_ch_pll_locked_21,
+  output          up_ch_rst_21,
+  output          up_ch_user_ready_21,
+  input           up_ch_rst_done_21,
+  output          up_ch_prbsforceerr_21,
+  output  [ 3:0]  up_ch_prbssel_21,
+  output          up_ch_prbscntreset_21,
+  input           up_ch_prbserr_21,
+  input           up_ch_prbslocked_21,
+  input   [ 1:0]  up_ch_bufstatus_21,
+  output          up_ch_bufstatus_rst_21,
+  output          up_ch_lpm_dfe_n_21,
+  output  [ 2:0]  up_ch_rate_21,
+  output  [ 1:0]  up_ch_sys_clk_sel_21,
+  output  [ 2:0]  up_ch_out_clk_sel_21,
+  output  [ 4:0]  up_ch_tx_diffctrl_21,
+  output  [ 4:0]  up_ch_tx_postcursor_21,
+  output  [ 4:0]  up_ch_tx_precursor_21,
+  output          up_ch_enb_21,
+  output  [11:0]  up_ch_addr_21,
+  output          up_ch_wr_21,
+  output  [15:0]  up_ch_wdata_21,
+  input   [15:0]  up_ch_rdata_21,
+  input           up_ch_ready_21,
+
+  output          up_es_enb_22,
+  output  [11:0]  up_es_addr_22,
+  output          up_es_wr_22,
+  output          up_es_reset_22,
+  output  [15:0]  up_es_wdata_22,
+  input   [15:0]  up_es_rdata_22,
+  input           up_es_ready_22,
+
+  input           up_ch_pll_locked_22,
+  output          up_ch_rst_22,
+  output          up_ch_user_ready_22,
+  input           up_ch_rst_done_22,
+  output          up_ch_prbsforceerr_22,
+  output  [ 3:0]  up_ch_prbssel_22,
+  output          up_ch_prbscntreset_22,
+  input           up_ch_prbserr_22,
+  input           up_ch_prbslocked_22,
+  input   [ 1:0]  up_ch_bufstatus_22,
+  output          up_ch_bufstatus_rst_22,
+  output          up_ch_lpm_dfe_n_22,
+  output  [ 2:0]  up_ch_rate_22,
+  output  [ 1:0]  up_ch_sys_clk_sel_22,
+  output  [ 2:0]  up_ch_out_clk_sel_22,
+  output  [ 4:0]  up_ch_tx_diffctrl_22,
+  output  [ 4:0]  up_ch_tx_postcursor_22,
+  output  [ 4:0]  up_ch_tx_precursor_22,
+  output          up_ch_enb_22,
+  output  [11:0]  up_ch_addr_22,
+  output          up_ch_wr_22,
+  output  [15:0]  up_ch_wdata_22,
+  input   [15:0]  up_ch_rdata_22,
+  input           up_ch_ready_22,
+
+  output          up_es_enb_23,
+  output  [11:0]  up_es_addr_23,
+  output          up_es_wr_23,
+  output          up_es_reset_23,
+  output  [15:0]  up_es_wdata_23,
+  input   [15:0]  up_es_rdata_23,
+  input           up_es_ready_23,
+
+  input           up_ch_pll_locked_23,
+  output          up_ch_rst_23,
+  output          up_ch_user_ready_23,
+  input           up_ch_rst_done_23,
+  output          up_ch_prbsforceerr_23,
+  output  [ 3:0]  up_ch_prbssel_23,
+  output          up_ch_prbscntreset_23,
+  input           up_ch_prbserr_23,
+  input           up_ch_prbslocked_23,
+  input   [ 1:0]  up_ch_bufstatus_23,
+  output          up_ch_bufstatus_rst_23,
+  output          up_ch_lpm_dfe_n_23,
+  output  [ 2:0]  up_ch_rate_23,
+  output  [ 1:0]  up_ch_sys_clk_sel_23,
+  output  [ 2:0]  up_ch_out_clk_sel_23,
+  output  [ 4:0]  up_ch_tx_diffctrl_23,
+  output  [ 4:0]  up_ch_tx_postcursor_23,
+  output  [ 4:0]  up_ch_tx_precursor_23,
+  output          up_ch_enb_23,
+  output  [11:0]  up_ch_addr_23,
+  output          up_ch_wr_23,
+  output  [15:0]  up_ch_wdata_23,
+  input   [15:0]  up_ch_rdata_23,
+  input           up_ch_ready_23,
+
   input           s_axi_aclk,
   input           s_axi_aresetn,
   output          up_status,
@@ -675,6 +953,10 @@ module axi_adxcvr #(
   wire            up_cm_ready_8_s;
   wire    [15:0]  up_cm_rdata_12_s;
   wire            up_cm_ready_12_s;
+  wire    [15:0]  up_cm_rdata_16_s;
+  wire            up_cm_ready_16_s;
+  wire    [15:0]  up_cm_rdata_20_s;
+  wire            up_cm_ready_20_s;
   wire    [ 7:0]  up_es_sel;
   wire            up_es_enb;
   wire    [11:0]  up_es_addr;
@@ -712,6 +994,22 @@ module axi_adxcvr #(
   wire            up_es_ready_14_s;
   wire    [15:0]  up_es_rdata_15_s;
   wire            up_es_ready_15_s;
+  wire    [15:0]  up_es_rdata_16_s;
+  wire            up_es_ready_16_s;
+  wire    [15:0]  up_es_rdata_17_s;
+  wire            up_es_ready_17_s;
+  wire    [15:0]  up_es_rdata_18_s;
+  wire            up_es_ready_18_s;
+  wire    [15:0]  up_es_rdata_19_s;
+  wire            up_es_ready_19_s;
+  wire    [15:0]  up_es_rdata_20_s;
+  wire            up_es_ready_20_s;
+  wire    [15:0]  up_es_rdata_21_s;
+  wire            up_es_ready_21_s;
+  wire    [15:0]  up_es_rdata_22_s;
+  wire            up_es_ready_22_s;
+  wire    [15:0]  up_es_rdata_23_s;
+  wire            up_es_ready_23_s;
   wire            up_ch_rst;
   wire            up_ch_user_ready;
   wire            up_ch_lpm_dfe_n;
@@ -805,6 +1103,46 @@ module axi_adxcvr #(
   wire            up_ch_prbserr_15_s;
   wire            up_ch_prbslocked_15_s;
   wire    [ 1:0]  up_ch_bufstatus_15_s;
+  wire            up_ch_pll_locked_16_s;
+  wire            up_ch_rst_done_16_s;
+  wire            up_ch_prbserr_16_s;
+  wire            up_ch_prbslocked_16_s;
+  wire    [ 1:0]  up_ch_bufstatus_16_s;
+  wire            up_ch_pll_locked_17_s;
+  wire            up_ch_rst_done_17_s;
+  wire            up_ch_prbserr_17_s;
+  wire            up_ch_prbslocked_17_s;
+  wire    [ 1:0]  up_ch_bufstatus_17_s;
+  wire            up_ch_pll_locked_18_s;
+  wire            up_ch_rst_done_18_s;
+  wire            up_ch_prbserr_18_s;
+  wire            up_ch_prbslocked_18_s;
+  wire    [ 1:0]  up_ch_bufstatus_18_s;
+  wire            up_ch_pll_locked_19_s;
+  wire            up_ch_rst_done_19_s;
+  wire            up_ch_prbserr_19_s;
+  wire            up_ch_prbslocked_19_s;
+  wire    [ 1:0]  up_ch_bufstatus_19_s;
+  wire            up_ch_pll_locked_20_s;
+  wire            up_ch_rst_done_20_s;
+  wire            up_ch_prbserr_20_s;
+  wire            up_ch_prbslocked_20_s;
+  wire    [ 1:0]  up_ch_bufstatus_20_s;
+  wire            up_ch_pll_locked_21_s;
+  wire            up_ch_rst_done_21_s;
+  wire            up_ch_prbserr_21_s;
+  wire            up_ch_prbslocked_21_s;
+  wire    [ 1:0]  up_ch_bufstatus_21_s;
+  wire            up_ch_pll_locked_22_s;
+  wire            up_ch_rst_done_22_s;
+  wire            up_ch_prbserr_22_s;
+  wire            up_ch_prbslocked_22_s;
+  wire    [ 1:0]  up_ch_bufstatus_22_s;
+  wire            up_ch_pll_locked_23_s;
+  wire            up_ch_rst_done_23_s;
+  wire            up_ch_prbserr_23_s;
+  wire            up_ch_prbslocked_23_s;
+  wire    [ 1:0]  up_ch_bufstatus_23_s;
   wire    [ 7:0]  up_ch_sel;
   wire            up_ch_enb;
   wire    [11:0]  up_ch_addr;
@@ -842,6 +1180,22 @@ module axi_adxcvr #(
   wire            up_ch_ready_14_s;
   wire    [15:0]  up_ch_rdata_15_s;
   wire            up_ch_ready_15_s;
+  wire    [15:0]  up_ch_rdata_16_s;
+  wire            up_ch_ready_16_s;
+  wire    [15:0]  up_ch_rdata_17_s;
+  wire            up_ch_ready_17_s;
+  wire    [15:0]  up_ch_rdata_18_s;
+  wire            up_ch_ready_18_s;
+  wire    [15:0]  up_ch_rdata_19_s;
+  wire            up_ch_ready_19_s;
+  wire    [15:0]  up_ch_rdata_20_s;
+  wire            up_ch_ready_20_s;
+  wire    [15:0]  up_ch_rdata_21_s;
+  wire            up_ch_ready_21_s;
+  wire    [15:0]  up_ch_rdata_22_s;
+  wire            up_ch_ready_22_s;
+  wire    [15:0]  up_ch_rdata_23_s;
+  wire            up_ch_ready_23_s;
   wire            up_es_req;
   wire            up_es_ack;
   wire    [ 4:0]  up_es_pscale;
@@ -2183,6 +2537,654 @@ module axi_adxcvr #(
     .up_ready (up_ch_ready_15),
     .up_rdata_out (up_ch_rdata_15_s),
     .up_ready_out (up_ch_ready_15_s));
+
+  assign up_cm_addr_16 = up_cm_addr;
+  assign up_cm_wr_16 = up_cm_wr;
+  assign up_cm_wdata_16 = up_cm_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (16),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_cm_16 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_cm_sel),
+    .up_enb (up_cm_enb),
+    .up_enb_out (up_cm_enb_16),
+    .up_rdata_in (up_cm_rdata_12_s),
+    .up_ready_in (up_cm_ready_12_s),
+    .up_rdata (up_cm_rdata_16),
+    .up_ready (up_cm_ready_16),
+    .up_rdata_out (up_cm_rdata_16_s),
+    .up_ready_out (up_cm_ready_16_s));
+
+  assign up_es_addr_16 = up_es_addr;
+  assign up_es_wr_16 = up_es_wr;
+  assign up_es_wdata_16 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (16),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_16 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_16),
+    .up_rdata_in (up_es_rdata_15_s),
+    .up_ready_in (up_es_ready_15_s),
+    .up_rdata (up_es_rdata_16),
+    .up_ready (up_es_ready_16),
+    .up_rdata_out (up_es_rdata_16_s),
+    .up_ready_out (up_es_ready_16_s));
+
+  assign up_ch_rst_16 = up_ch_rst;
+  assign up_ch_user_ready_16 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_16 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_16 = up_ch_rate;
+  assign up_ch_sys_clk_sel_16 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_16 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_16 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_16 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_16 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_16 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_16 = up_ch_prbssel;
+  assign up_ch_prbscntreset_16 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_16 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (16),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_16 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_15_s),
+    .up_rst_done_in (up_ch_rst_done_15_s),
+    .up_prbserr_in (up_ch_prbserr_15_s),
+    .up_prbslocked_in (up_ch_prbslocked_15_s),
+    .up_bufstatus_in (up_ch_bufstatus_15_s),
+    .up_pll_locked (up_ch_pll_locked_16),
+    .up_rst_done (up_ch_rst_done_16),
+    .up_prbserr (up_ch_prbserr_16),
+    .up_prbslocked (up_ch_prbslocked_16),
+    .up_bufstatus (up_ch_bufstatus_16),
+    .up_pll_locked_out (up_ch_pll_locked_16_s),
+    .up_rst_done_out (up_ch_rst_done_16_s),
+    .up_prbserr_out (up_ch_prbserr_16_s),
+    .up_prbslocked_out (up_ch_prbslocked_16_s),
+    .up_bufstatus_out (up_ch_bufstatus_16_s));
+
+  assign up_ch_addr_16 = up_ch_addr;
+  assign up_ch_wr_16 = up_ch_wr;
+  assign up_ch_wdata_16 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (16),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_16 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_16),
+    .up_rdata_in (up_ch_rdata_15_s),
+    .up_ready_in (up_ch_ready_15_s),
+    .up_rdata (up_ch_rdata_16),
+    .up_ready (up_ch_ready_16),
+    .up_rdata_out (up_ch_rdata_16_s),
+    .up_ready_out (up_ch_ready_16_s));
+
+  assign up_es_addr_17 = up_es_addr;
+  assign up_es_wr_17 = up_es_wr;
+  assign up_es_wdata_17 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (17),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_17 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_17),
+    .up_rdata_in (up_es_rdata_16_s),
+    .up_ready_in (up_es_ready_16_s),
+    .up_rdata (up_es_rdata_17),
+    .up_ready (up_es_ready_17),
+    .up_rdata_out (up_es_rdata_17_s),
+    .up_ready_out (up_es_ready_17_s));
+
+  assign up_ch_rst_17 = up_ch_rst;
+  assign up_ch_user_ready_17 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_17 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_17 = up_ch_rate;
+  assign up_ch_sys_clk_sel_17 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_17 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_17 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_17 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_17 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_17 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_17 = up_ch_prbssel;
+  assign up_ch_prbscntreset_17 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_17 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (17),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_17 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_16_s),
+    .up_rst_done_in (up_ch_rst_done_16_s),
+    .up_prbserr_in (up_ch_prbserr_16_s),
+    .up_prbslocked_in (up_ch_prbslocked_16_s),
+    .up_bufstatus_in (up_ch_bufstatus_16_s),
+    .up_pll_locked (up_ch_pll_locked_17),
+    .up_rst_done (up_ch_rst_done_17),
+    .up_prbserr (up_ch_prbserr_17),
+    .up_prbslocked (up_ch_prbslocked_17),
+    .up_bufstatus (up_ch_bufstatus_17),
+    .up_pll_locked_out (up_ch_pll_locked_17_s),
+    .up_rst_done_out (up_ch_rst_done_17_s),
+    .up_prbserr_out (up_ch_prbserr_17_s),
+    .up_prbslocked_out (up_ch_prbslocked_17_s),
+    .up_bufstatus_out (up_ch_bufstatus_17_s));
+
+  assign up_ch_addr_17 = up_ch_addr;
+  assign up_ch_wr_17 = up_ch_wr;
+  assign up_ch_wdata_17 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (17),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_17 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_17),
+    .up_rdata_in (up_ch_rdata_16_s),
+    .up_ready_in (up_ch_ready_16_s),
+    .up_rdata (up_ch_rdata_17),
+    .up_ready (up_ch_ready_17),
+    .up_rdata_out (up_ch_rdata_17_s),
+    .up_ready_out (up_ch_ready_17_s));
+
+  assign up_es_addr_18 = up_es_addr;
+  assign up_es_wr_18 = up_es_wr;
+  assign up_es_wdata_18 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (18),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_18 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_18),
+    .up_rdata_in (up_es_rdata_17_s),
+    .up_ready_in (up_es_ready_17_s),
+    .up_rdata (up_es_rdata_18),
+    .up_ready (up_es_ready_18),
+    .up_rdata_out (up_es_rdata_18_s),
+    .up_ready_out (up_es_ready_18_s));
+
+  assign up_ch_rst_18 = up_ch_rst;
+  assign up_ch_user_ready_18 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_18 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_18 = up_ch_rate;
+  assign up_ch_sys_clk_sel_18 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_18 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_18 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_18 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_18 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_18 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_18 = up_ch_prbssel;
+  assign up_ch_prbscntreset_18 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_18 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (18),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_18 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_17_s),
+    .up_rst_done_in (up_ch_rst_done_17_s),
+    .up_prbserr_in (up_ch_prbserr_17_s),
+    .up_prbslocked_in (up_ch_prbslocked_17_s),
+    .up_bufstatus_in (up_ch_bufstatus_17_s),
+    .up_pll_locked (up_ch_pll_locked_18),
+    .up_rst_done (up_ch_rst_done_18),
+    .up_prbserr (up_ch_prbserr_18),
+    .up_prbslocked (up_ch_prbslocked_18),
+    .up_bufstatus (up_ch_bufstatus_18),
+    .up_pll_locked_out (up_ch_pll_locked_18_s),
+    .up_rst_done_out (up_ch_rst_done_18_s),
+    .up_prbserr_out (up_ch_prbserr_18_s),
+    .up_prbslocked_out (up_ch_prbslocked_18_s),
+    .up_bufstatus_out (up_ch_bufstatus_18_s));
+
+  assign up_ch_addr_18 = up_ch_addr;
+  assign up_ch_wr_18 = up_ch_wr;
+  assign up_ch_wdata_18 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (18),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_18 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_18),
+    .up_rdata_in (up_ch_rdata_17_s),
+    .up_ready_in (up_ch_ready_17_s),
+    .up_rdata (up_ch_rdata_18),
+    .up_ready (up_ch_ready_18),
+    .up_rdata_out (up_ch_rdata_18_s),
+    .up_ready_out (up_ch_ready_18_s));
+
+  assign up_es_addr_19 = up_es_addr;
+  assign up_es_wr_19 = up_es_wr;
+  assign up_es_wdata_19 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (19),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_19 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_19),
+    .up_rdata_in (up_es_rdata_18_s),
+    .up_ready_in (up_es_ready_18_s),
+    .up_rdata (up_es_rdata_19),
+    .up_ready (up_es_ready_19),
+    .up_rdata_out (up_es_rdata_19_s),
+    .up_ready_out (up_es_ready_19_s));
+
+  assign up_ch_rst_19 = up_ch_rst;
+  assign up_ch_user_ready_19 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_19 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_19 = up_ch_rate;
+  assign up_ch_sys_clk_sel_19 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_19 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_19 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_19 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_19 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_19 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_19 = up_ch_prbssel;
+  assign up_ch_prbscntreset_19 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_19 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (19),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_19 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_18_s),
+    .up_rst_done_in (up_ch_rst_done_18_s),
+    .up_prbserr_in (up_ch_prbserr_18_s),
+    .up_prbslocked_in (up_ch_prbslocked_18_s),
+    .up_bufstatus_in (up_ch_bufstatus_18_s),
+    .up_pll_locked (up_ch_pll_locked_19),
+    .up_rst_done (up_ch_rst_done_19),
+    .up_prbserr (up_ch_prbserr_19),
+    .up_prbslocked (up_ch_prbslocked_19),
+    .up_bufstatus (up_ch_bufstatus_19),
+    .up_pll_locked_out (up_ch_pll_locked_19_s),
+    .up_rst_done_out (up_ch_rst_done_19_s),
+    .up_prbserr_out (up_ch_prbserr_19_s),
+    .up_prbslocked_out (up_ch_prbslocked_19_s),
+    .up_bufstatus_out (up_ch_bufstatus_19_s));
+
+  assign up_ch_addr_19 = up_ch_addr;
+  assign up_ch_wr_19 = up_ch_wr;
+  assign up_ch_wdata_19 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (19),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_19 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_19),
+    .up_rdata_in (up_ch_rdata_18_s),
+    .up_ready_in (up_ch_ready_18_s),
+    .up_rdata (up_ch_rdata_19),
+    .up_ready (up_ch_ready_19),
+    .up_rdata_out (up_ch_rdata_19_s),
+    .up_ready_out (up_ch_ready_19_s));
+
+  assign up_cm_addr_20 = up_cm_addr;
+  assign up_cm_wr_20 = up_cm_wr;
+  assign up_cm_wdata_20 = up_cm_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (20),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_cm_20 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_cm_sel),
+    .up_enb (up_cm_enb),
+    .up_enb_out (up_cm_enb_20),
+    .up_rdata_in (up_cm_rdata_16_s),
+    .up_ready_in (up_cm_ready_16_s),
+    .up_rdata (up_cm_rdata_20),
+    .up_ready (up_cm_ready_20),
+    .up_rdata_out (up_cm_rdata_20_s),
+    .up_ready_out (up_cm_ready_20_s));
+
+  assign up_es_addr_20 = up_es_addr;
+  assign up_es_wr_20 = up_es_wr;
+  assign up_es_wdata_20 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (20),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_20 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_20),
+    .up_rdata_in (up_es_rdata_19_s),
+    .up_ready_in (up_es_ready_19_s),
+    .up_rdata (up_es_rdata_20),
+    .up_ready (up_es_ready_20),
+    .up_rdata_out (up_es_rdata_20_s),
+    .up_ready_out (up_es_ready_20_s));
+
+  assign up_ch_rst_20 = up_ch_rst;
+  assign up_ch_user_ready_20 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_20 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_20 = up_ch_rate;
+  assign up_ch_sys_clk_sel_20 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_20 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_20 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_20 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_20 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_20 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_20 = up_ch_prbssel;
+  assign up_ch_prbscntreset_20 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_20 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (20),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_20 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_19_s),
+    .up_rst_done_in (up_ch_rst_done_19_s),
+    .up_prbserr_in (up_ch_prbserr_19_s),
+    .up_prbslocked_in (up_ch_prbslocked_19_s),
+    .up_bufstatus_in (up_ch_bufstatus_19_s),
+    .up_pll_locked (up_ch_pll_locked_20),
+    .up_rst_done (up_ch_rst_done_20),
+    .up_prbserr (up_ch_prbserr_20),
+    .up_prbslocked (up_ch_prbslocked_20),
+    .up_bufstatus (up_ch_bufstatus_20),
+    .up_pll_locked_out (up_ch_pll_locked_20_s),
+    .up_rst_done_out (up_ch_rst_done_20_s),
+    .up_prbserr_out (up_ch_prbserr_20_s),
+    .up_prbslocked_out (up_ch_prbslocked_20_s),
+    .up_bufstatus_out (up_ch_bufstatus_20_s));
+
+  assign up_ch_addr_20 = up_ch_addr;
+  assign up_ch_wr_20 = up_ch_wr;
+  assign up_ch_wdata_20 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (20),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_20 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_20),
+    .up_rdata_in (up_ch_rdata_19_s),
+    .up_ready_in (up_ch_ready_19_s),
+    .up_rdata (up_ch_rdata_20),
+    .up_ready (up_ch_ready_20),
+    .up_rdata_out (up_ch_rdata_20_s),
+    .up_ready_out (up_ch_ready_20_s));
+
+  assign up_es_addr_21 = up_es_addr;
+  assign up_es_wr_21 = up_es_wr;
+  assign up_es_wdata_21 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (21),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_21 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_21),
+    .up_rdata_in (up_es_rdata_20_s),
+    .up_ready_in (up_es_ready_20_s),
+    .up_rdata (up_es_rdata_21),
+    .up_ready (up_es_ready_21),
+    .up_rdata_out (up_es_rdata_21_s),
+    .up_ready_out (up_es_ready_21_s));
+
+  assign up_ch_rst_21 = up_ch_rst;
+  assign up_ch_user_ready_21 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_21 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_21 = up_ch_rate;
+  assign up_ch_sys_clk_sel_21 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_21 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_21 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_21 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_21 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_21 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_21 = up_ch_prbssel;
+  assign up_ch_prbscntreset_21 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_21 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (21),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_21 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_20_s),
+    .up_rst_done_in (up_ch_rst_done_20_s),
+    .up_prbserr_in (up_ch_prbserr_20_s),
+    .up_prbslocked_in (up_ch_prbslocked_20_s),
+    .up_bufstatus_in (up_ch_bufstatus_20_s),
+    .up_pll_locked (up_ch_pll_locked_21),
+    .up_rst_done (up_ch_rst_done_21),
+    .up_prbserr (up_ch_prbserr_21),
+    .up_prbslocked (up_ch_prbslocked_21),
+    .up_bufstatus (up_ch_bufstatus_21),
+    .up_pll_locked_out (up_ch_pll_locked_21_s),
+    .up_rst_done_out (up_ch_rst_done_21_s),
+    .up_prbserr_out (up_ch_prbserr_21_s),
+    .up_prbslocked_out (up_ch_prbslocked_21_s),
+    .up_bufstatus_out (up_ch_bufstatus_21_s));
+
+  assign up_ch_addr_21 = up_ch_addr;
+  assign up_ch_wr_21 = up_ch_wr;
+  assign up_ch_wdata_21 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (21),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_21 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_21),
+    .up_rdata_in (up_ch_rdata_20_s),
+    .up_ready_in (up_ch_ready_20_s),
+    .up_rdata (up_ch_rdata_21),
+    .up_ready (up_ch_ready_21),
+    .up_rdata_out (up_ch_rdata_21_s),
+    .up_ready_out (up_ch_ready_21_s));
+
+  assign up_es_addr_22 = up_es_addr;
+  assign up_es_wr_22 = up_es_wr;
+  assign up_es_wdata_22 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (22),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_22 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_22),
+    .up_rdata_in (up_es_rdata_21_s),
+    .up_ready_in (up_es_ready_21_s),
+    .up_rdata (up_es_rdata_22),
+    .up_ready (up_es_ready_22),
+    .up_rdata_out (up_es_rdata_22_s),
+    .up_ready_out (up_es_ready_22_s));
+
+  assign up_ch_rst_22 = up_ch_rst;
+  assign up_ch_user_ready_22 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_22 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_22 = up_ch_rate;
+  assign up_ch_sys_clk_sel_22 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_22 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_22 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_22 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_22 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_22 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_22 = up_ch_prbssel;
+  assign up_ch_prbscntreset_22 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_22 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (22),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_22 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_21_s),
+    .up_rst_done_in (up_ch_rst_done_21_s),
+    .up_prbserr_in (up_ch_prbserr_21_s),
+    .up_prbslocked_in (up_ch_prbslocked_21_s),
+    .up_bufstatus_in (up_ch_bufstatus_21_s),
+    .up_pll_locked (up_ch_pll_locked_22),
+    .up_rst_done (up_ch_rst_done_22),
+    .up_prbserr (up_ch_prbserr_22),
+    .up_prbslocked (up_ch_prbslocked_22),
+    .up_bufstatus (up_ch_bufstatus_22),
+    .up_pll_locked_out (up_ch_pll_locked_22_s),
+    .up_rst_done_out (up_ch_rst_done_22_s),
+    .up_prbserr_out (up_ch_prbserr_22_s),
+    .up_prbslocked_out (up_ch_prbslocked_22_s),
+    .up_bufstatus_out (up_ch_bufstatus_22_s));
+
+  assign up_ch_addr_22 = up_ch_addr;
+  assign up_ch_wr_22 = up_ch_wr;
+  assign up_ch_wdata_22 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (22),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_22 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_22),
+    .up_rdata_in (up_ch_rdata_21_s),
+    .up_ready_in (up_ch_ready_21_s),
+    .up_rdata (up_ch_rdata_22),
+    .up_ready (up_ch_ready_22),
+    .up_rdata_out (up_ch_rdata_22_s),
+    .up_ready_out (up_ch_ready_22_s));
+
+  assign up_es_addr_23 = up_es_addr;
+  assign up_es_wr_23 = up_es_wr;
+  assign up_es_wdata_23 = up_es_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (23),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_es_23 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_es_sel),
+    .up_enb (up_es_enb),
+    .up_enb_out (up_es_enb_23),
+    .up_rdata_in (up_es_rdata_22_s),
+    .up_ready_in (up_es_ready_22_s),
+    .up_rdata (up_es_rdata_23),
+    .up_ready (up_es_ready_23),
+    .up_rdata_out (up_es_rdata_23_s),
+    .up_ready_out (up_es_ready_23_s));
+
+  assign up_ch_rst_23 = up_ch_rst;
+  assign up_ch_user_ready_23 = up_ch_user_ready;
+  assign up_ch_lpm_dfe_n_23 = up_ch_lpm_dfe_n;
+  assign up_ch_rate_23 = up_ch_rate;
+  assign up_ch_sys_clk_sel_23 = up_ch_sys_clk_sel;
+  assign up_ch_out_clk_sel_23 = up_ch_out_clk_sel;
+  assign up_ch_tx_diffctrl_23 = up_ch_tx_diffctrl;
+  assign up_ch_tx_postcursor_23 = up_ch_tx_postcursor;
+  assign up_ch_tx_precursor_23 = up_ch_tx_precursor;
+  assign up_ch_prbsforceerr_23 = up_ch_prbsforceerr;
+  assign up_ch_prbssel_23 = up_ch_prbssel;
+  assign up_ch_prbscntreset_23 = up_ch_prbscntreset;
+  assign up_ch_bufstatus_rst_23 = up_ch_bufstatus_rst;
+
+  axi_adxcvr_mstatus #(
+    .XCVR_ID (23),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mstatus_ch_23 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_pll_locked_in (up_ch_pll_locked_22_s),
+    .up_rst_done_in (up_ch_rst_done_22_s),
+    .up_prbserr_in (up_ch_prbserr_22_s),
+    .up_prbslocked_in (up_ch_prbslocked_22_s),
+    .up_bufstatus_in (up_ch_bufstatus_22_s),
+    .up_pll_locked (up_ch_pll_locked_23),
+    .up_rst_done (up_ch_rst_done_23),
+    .up_prbserr (up_ch_prbserr_23),
+    .up_prbslocked (up_ch_prbslocked_23),
+    .up_bufstatus (up_ch_bufstatus_23),
+    .up_pll_locked_out (up_ch_pll_locked_23_s),
+    .up_rst_done_out (up_ch_rst_done_23_s),
+    .up_prbserr_out (up_ch_prbserr_23_s),
+    .up_prbslocked_out (up_ch_prbslocked_23_s),
+    .up_bufstatus_out (up_ch_bufstatus_23_s));
+
+  assign up_ch_addr_23 = up_ch_addr;
+  assign up_ch_wr_23 = up_ch_wr;
+  assign up_ch_wdata_23 = up_ch_wdata;
+
+  axi_adxcvr_mdrp #(
+    .XCVR_ID (23),
+    .NUM_OF_LANES (NUM_OF_LANES))
+  i_mdrp_ch_23 (
+    .up_rstn (up_rstn),
+    .up_clk (up_clk),
+    .up_sel (up_ch_sel),
+    .up_enb (up_ch_enb),
+    .up_enb_out (up_ch_enb_23),
+    .up_rdata_in (up_ch_rdata_22_s),
+    .up_ready_in (up_ch_ready_22_s),
+    .up_rdata (up_ch_rdata_23),
+    .up_ready (up_ch_ready_23),
+    .up_rdata_out (up_ch_rdata_23_s),
+    .up_ready_out (up_ch_ready_23_s));
 
   axi_adxcvr_es #(
     .XCVR_TYPE (XCVR_TYPE),
