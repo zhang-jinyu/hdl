@@ -52,7 +52,7 @@ module axi_adaq8092_apb_decode(
     for (i = 0; i <= 6; i = i + 1) begin
      
       adc_data_decoded_s[2*i+1]=~adc_data[2*i+1];
-      adc_data_decoded_s[2*i+1]=adc_data[2*i+1];
+      adc_data_decoded_s[2*i]=adc_data[2*i];
 	end
     end     
 endmodule
