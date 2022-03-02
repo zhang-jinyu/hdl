@@ -113,13 +113,7 @@ module system_top (
   output                  adc_pd1,
   output                  adc_pd2,
   output                  en_1p8,
-  
-  output                  spi_csn_pmod,
-  output                  spi_clk_pmod,
-  output                  spi_mosi_pmod,
-  output                  spi_miso_pmod,
-  
-  
+ 
   output                  spi_csn,
   output                  spi_clk,
   output                  spi_mosi,
@@ -159,19 +153,10 @@ assign spi_clk = spi0_clk;
 assign spi_mosi = spi0_mosi;
 assign spi0_miso = spi_miso;
 
-
-
-assign spi_csn_pmod = spi_csn;
-assign spi_clk_pmod = spi_clk;
-assign spi_mosi_pmod = spi_mosi;
-assign spi_miso_pmod = spi_miso;
-
-
 assign adc_pd2 = gpio_o[34];
 assign adc_pd1 = gpio_o[33];
 assign en_1p8 = gpio_o[35];
 assign gpio_i[32] = adc_par_ser;
-
 
 
 

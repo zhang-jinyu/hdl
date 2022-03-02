@@ -71,7 +71,8 @@ module axi_adaq8092 #(
   output                  adc_valid,
   output                  adc_enable_1,
   output                  adc_enable_2,
-  output      [31:0]      adc_data,
+  output      [15:0]      adc_data_channel1,
+  output      [15:0]      adc_data_channel2,
   input                   adc_dovf,
 
   // axi interface
@@ -177,7 +178,7 @@ module axi_adaq8092 #(
     .adc_rst (adc_rst),
     .adc_data (adc_data_s_1),
     .adc_or (adc_or_s),
-    .adc_dcfilter_data_out (adc_data[15:0]),
+    .adc_dcfilter_data_out (adc_data_channel1),
     .adc_enable (adc_enable_1),
     .adc_valid (adc_valid),
     .up_adc_pn_err (up_status_pn_err_s[0]),
@@ -204,7 +205,7 @@ module axi_adaq8092 #(
     .adc_rst (adc_rst),
     .adc_data (adc_data_s_2),
     .adc_or (adc_or_s),
-    .adc_dcfilter_data_out (adc_data[31:16]),
+    .adc_dcfilter_data_out (adc_data_channel2),
     .adc_enable (adc_enable_2),
     .adc_valid (adc_valid),
     .up_adc_pn_err (up_status_pn_err_s[1]),
