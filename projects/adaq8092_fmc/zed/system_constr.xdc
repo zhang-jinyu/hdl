@@ -42,14 +42,7 @@ set_property -dict {PACKAGE_PIN D20    IOSTANDARD LVCMOS25} [get_ports spi_clk] 
 set_property -dict {PACKAGE_PIN B19    IOSTANDARD LVCMOS25} [get_ports spi_mosi]                          ; #D20  FMC_LPC_LA17_P
 set_property -dict {PACKAGE_PIN C20    IOSTANDARD LVCMOS25} [get_ports spi_miso]                          ; #C23  FMC_LPC_LA18_N
   
-set_property -dict {PACKAGE_PIN W12    IOSTANDARD LVCMOS33} [get_ports spi_csn_pmod]                      ; #jb1
-set_property -dict {PACKAGE_PIN W11    IOSTANDARD LVCMOS33} [get_ports spi_clk_pmod]                      ; #jb2
-set_property -dict {PACKAGE_PIN V10    IOSTANDARD LVCMOS33} [get_ports spi_mosi_pmod]                     ; #jb3
-set_property -dict {PACKAGE_PIN W8     IOSTANDARD LVCMOS33} [get_ports spi_miso_pmod]                     ; #jb4
 
-
-
- 
 # other  
   
 set_property -dict {PACKAGE_PIN G20    IOSTANDARD LVCMOS25} [get_ports adc_par_ser]                       ; #G21  FMC_LPC_LA20_P

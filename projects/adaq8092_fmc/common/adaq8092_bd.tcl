@@ -12,9 +12,10 @@
  create_bd_port -dir I -from 6 -to 0 adc_data_in2_p
  create_bd_port -dir I -from 6 -to 0 adc_data_in2_n
 
+
  # adc peripheral
 
-ad_ip_instance util_cpack2 axi_adaq8092_cpack [list \
+ ad_ip_instance util_cpack2 axi_adaq8092_cpack [list \
                                              NUM_OF_CHANNELS 2 \
                                              SAMPLES_PER_CHANNEL 1 \
                                              SAMPLE_DATA_WIDTH 16 \
@@ -34,49 +35,34 @@ ad_ip_instance util_cpack2 axi_adaq8092_cpack [list \
  ad_ip_parameter axi_adaq8092_dma CONFIG.DMA_DATA_WIDTH_DEST 64
  ad_ip_parameter axi_adaq8092_dma CONFIG.AXI_SLICE_DEST 1
 
+
  # connections
 
+ #adaq8092_core
+
  ad_connect    adc_clk_in_p     axi_adaq8092/adc_clk_in_p
- ad_connect    adc_clk_in_n     axi_adaq8092/adc_clk_in_n
-
-
-            
-ad_connect    adc_data_in1_p  axi_adaq8092/adc_data_in1_p
-ad_connect    adc_data_in1_n  axi_adaq8092/adc_data_in1_n
-
-ad_connect    adc_data_in2_p  axi_adaq8092/adc_data_in2_p
-ad_connect    adc_data_in2_n  axi_adaq8092/adc_data_in2_n
-
-
+ ad_connect    adc_clk_in_n     axi_adaq8092/adc_clk_in_n     
+ ad_connect    adc_data_in1_p  axi_adaq8092/adc_data_in1_p
+ ad_connect    adc_data_in1_n  axi_adaq8092/adc_data_in1_n
+ ad_connect    adc_data_in2_p  axi_adaq8092/adc_data_in2_p
+ ad_connect    adc_data_in2_n  axi_adaq8092/adc_data_in2_n
  ad_connect    adc_data_or_p    axi_adaq8092/adc_or_in_p
  ad_connect    adc_data_or_n    axi_adaq8092/adc_or_in_n
-
  ad_connect adaq8092_clk axi_adaq8092/adc_clk
+ ad_connect $sys_iodelay_clk     axi_adaq8092/delay_clk
 
- # connections upack
-
-#ad_connect  util_ad6676_xcvr/rx_out_clk_0 axi_ad6676_core/link_clk
-#ad_connect  util_ad6676_xcvr/rx_out_clk_0 rx_core_clk
-#ad_connect  axi_ad6676_jesd/rx_sof axi_ad6676_core/link_sof
-#ad_connect  axi_ad6676_jesd/rx_data_tdata axi_ad6676_core/link_data
-#ad_connect  axi_ad6676_jesd/rx_data_tvalid axi_ad6676_core/link_valid
-#ad_connect  util_ad6676_xcvr/rx_out_clk_0 axi_ad6676_cpack/clk
-
-
-ad_connect  sys_rstgen/peripheral_reset axi_adaq8092_cpack/reset
-
-#channels connection 
-for {set i 0} {$i < 2} {incr i} {
-
-  ad_connect  axi_adaq8092/adc_enable_${i} axi_adaq8092_cpack/enable_${i}
-  ad_connect  axi_adaq8092/adc_data_channel${i} axi_adaq8092_cpack/fifo_wr_data_${i} 
-}
- ad_connect  axi_adaq8092_dma/fifo_wr_din axi_adaq8092_cpack/packed_fifo_wr
- ad_connect axi_adaq8092/adc_clk axi_adaq8092_dma/fifo_wr_clk
- ad_connect $sys_iodelay_clk     axi_adaq8092/delay_clk 
-
+ #adaq8092_cpack
+ 
+ ad_connect  axi_adaq8092/adc_enable_1 axi_adaq8092_cpack/enable_0
+ ad_connect  axi_adaq8092/adc_data_channel1 axi_adaq8092_cpack/fifo_wr_data_0
+ ad_connect  axi_adaq8092/adc_enable_2 axi_adaq8092_cpack/enable_1
+ ad_connect  axi_adaq8092/adc_data_channel2 axi_adaq8092_cpack/fifo_wr_data_1
+ ad_connect  axi_adaq8092_dma/fifo_wr axi_adaq8092_cpack/packed_fifo_wr
  ad_connect  axi_adaq8092/adc_valid axi_adaq8092_cpack/fifo_wr_en
  ad_connect  axi_adaq8092/adc_dovf axi_adaq8092_cpack/fifo_wr_overflow
+ ad_connect  axi_adaq8092/adc_clk axi_adaq8092_cpack/clk
+ ad_connect  axi_adaq8092/adc_clk axi_adaq8092_dma/fifo_wr_clk
+ ad_connect axi_adaq8092/adc_rst  axi_adaq8092_cpack/reset
 
  # address mapping
 

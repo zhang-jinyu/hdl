@@ -117,11 +117,9 @@ module axi_adaq8092 #(
 
   // internal signals
 
-  
   wire            adc_or_s;
   wire   [13:0]   adc_data_s_1;
   wire   [13:0]   adc_data_s_2;
-
   wire    [1:0]   up_status_pn_err_s;  //2 CHANNELS 
   wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
   wire    [1:0]   up_status_or_s;      //2 CHANNELS
@@ -134,7 +132,6 @@ module axi_adaq8092 #(
   wire    [31:0]  up_rdata_s[0:3];     //2 CHANNELS
   wire    [3:0]   up_rack_s ;          //2 CHANNELS
   wire    [3:0]   up_wack_s;           //2 CHANNELS
- 
   wire            up_wreq_s;
   wire    [13:0]  up_waddr_s;
   wire    [31:0]  up_wdata_s;
@@ -144,7 +141,8 @@ module axi_adaq8092 #(
 
   assign up_clk = s_axi_aclk;
   assign up_rstn = s_axi_aresetn;
-
+ 
+ 
   // processor read interface
 
   always @(negedge up_rstn or posedge up_clk) begin
@@ -166,10 +164,8 @@ module axi_adaq8092 #(
     end
   end
 
-  // channel 
-
-
   // ADC channel 1  
+
   axi_adaq8092_channel #(
     .CHANNEL_ID(0),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
@@ -196,8 +192,9 @@ module axi_adaq8092 #(
     .up_rack (up_rack_s[0]));
 
 
-// ADC channel 2  
-   axi_adaq8092_channel #(
+  // ADC channel 2 
+
+  axi_adaq8092_channel #(
     .CHANNEL_ID(1),
     .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
   i_channel_2 (
@@ -222,7 +219,7 @@ module axi_adaq8092 #(
     .up_rdata (up_rdata_s[1]),
     .up_rack (up_rack_s[1]));
 
-  // main (device interface)
+  // ADC interface
 
   axi_adaq8092_if #(
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),

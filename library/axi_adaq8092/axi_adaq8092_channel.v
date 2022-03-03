@@ -90,7 +90,6 @@ module axi_adaq8092_channel #(
   wire            adc_abp_enb_s;
   wire            adc_rand_enb_s;
 
-  // iq correction inputs
  
  
    axi_adaq8092_rand_decode i_rand (
@@ -144,8 +143,6 @@ module axi_adaq8092_channel #(
   end
   endgenerate 
   
-  
-
   up_adc_channel #(
     .COMMON_ID (6'h01),
     .CHANNEL_ID(CHANNEL_ID),

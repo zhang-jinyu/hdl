@@ -36,29 +36,33 @@
 
 `timescale 1ns/100ps
 
-
 module axi_adaq8092_rand_decode(
-  input [13:0] adc_data,
-  input adc_clk,
-  input adc_rand_enb,
-  output [13:0] adc_data_decoded);
+
+  input       [13:0]      adc_data,
+  input                   adc_clk,
+  input                   adc_rand_enb,
+  output      [13:0]      adc_data_decoded);
   
-  integer i;
+
+  
   reg [13:0] adc_data_decoded_s;
-  
+  integer i;
+
   assign adc_data_decoded = adc_rand_enb ? adc_data_decoded_s : adc_data ;
-  
+
+  // DATA DECODING
+
   always @(posedge adc_clk) begin 
   
     for (i = 1; i <= 13; i = i + 1) begin
       adc_data_decoded_s[i]= adc_data[i] ^ adc_data[0];
     end
-    
+
     adc_data_decoded_s[0] =adc_data[0];  
-    
+
     end
- 
-
-
-     
+    
 endmodule
+
+// ***************************************************************************
+// ***************************************************************************

@@ -86,18 +86,14 @@ module axi_adaq8092_if #(
   begin
     adc_status <= 1'b1;
     adc_or <= adc_or_s_1 | adc_or_s_1;
-          // DDR LVDS INTERFACE
+    // DDR LVDS INTERFACE
     adc_data <= { adc_data_n_s[13], adc_data_p_s[13], adc_data_n_s[12], adc_data_p_s[12], adc_data_n_s[11], adc_data_p_s[11], adc_data_n_s[10], adc_data_p_s[10], adc_data_n_s[9], adc_data_p_s[9], adc_data_n_s[8], adc_data_p_s[8], adc_data_n_s[7], adc_data_p_s[7], adc_data_n_s[6], adc_data_p_s[6], adc_data_n_s[5], adc_data_p_s[5], adc_data_n_s[4], adc_data_p_s[4], adc_data_n_s[3], adc_data_p_s[3], adc_data_n_s[2], adc_data_p_s[2], adc_data_n_s[1], adc_data_p_s[1], adc_data_n_s[0], adc_data_p_s[0]};
-   
-  
+
   end
 
   // data interface
 
-   generate
-   
-                                    
-
+   generate                     
       for (l_inst = 0; l_inst <= 13; l_inst = l_inst + 1) begin : lvds_ddr_adc_if  // DDR LVDS INTERFACE 
 
         ad_data_in #(
@@ -118,8 +114,7 @@ module axi_adaq8092_if #(
           .delay_clk (delay_clk),
           .delay_rst (delay_rst),
           .delay_locked ());
-      end    
-          
+      end          
   endgenerate
 
   // over-range interface
