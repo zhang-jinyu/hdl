@@ -38,18 +38,18 @@
 
 
 module axi_adaq8092_apb_decode(
-  input      [13:0]      adc_data,
+  input      [27:0]      adc_data,
   input                  adc_clk,
   input                  adc_abp_enb,
-  output     [13:0]      adc_data_decoded);
+  output     [27:0]      adc_data_decoded);
 
   integer i;
-  reg        [13:0]      adc_data_decoded_s;
+  reg        [27:0]      adc_data_decoded_s;
   
   assign adc_data_decoded = adc_abp_enb ? adc_data_decoded_s : adc_data ;
 
   always @(posedge adc_clk) begin 
-    for (i = 0; i <= 6; i = i + 1) begin
+    for (i = 0; i <= 13; i = i + 1) begin
      
       adc_data_decoded_s[2*i+1]=~adc_data[2*i+1];
       adc_data_decoded_s[2*i]=adc_data[2*i];

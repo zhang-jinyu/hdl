@@ -38,14 +38,14 @@
 
 module axi_adaq8092_rand_decode(
 
-  input       [13:0]      adc_data,
+  input       [27:0]      adc_data,
   input                   adc_clk,
   input                   adc_rand_enb,
-  output      [13:0]      adc_data_decoded);
+  output      [27:0]      adc_data_decoded);
   
 
   
-  reg [13:0] adc_data_decoded_s;
+  reg [27:0] adc_data_decoded_s;
   integer i;
 
   assign adc_data_decoded = adc_rand_enb ? adc_data_decoded_s : adc_data ;
@@ -57,9 +57,13 @@ module axi_adaq8092_rand_decode(
     for (i = 1; i <= 13; i = i + 1) begin
       adc_data_decoded_s[i]= adc_data[i] ^ adc_data[0];
     end
-
+    for (i = 15; i <= 27; i = i + 1) begin
+      adc_data_decoded_s[i]= adc_data[i] ^ adc_data[14];
+    end
+    
     adc_data_decoded_s[0] =adc_data[0];  
-
+    adc_data_decoded_s[14] =adc_data[14];
+    
     end
     
 endmodule

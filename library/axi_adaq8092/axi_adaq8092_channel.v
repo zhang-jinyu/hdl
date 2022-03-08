@@ -80,45 +80,16 @@ module axi_adaq8092_channel #(
   wire            adc_dfmt_enable_s;
   wire    [15:0]  adc_dcfilt_offset_s;
   wire    [15:0]  adc_dcfilt_coeff_s;
-  wire    [ 3:0]  adc_pnseq_sel_s;
-  wire            adc_pn_err_s;
-  wire            adc_pn_oos_s;
-  
-  wire    [13:0]  adc_decoded_data_s;
-  wire    [13:0]  adc_part_decoded_data_s;
-  
-  wire            adc_abp_enb_s;
-  wire            adc_rand_enb_s;
-
  
- 
-   axi_adaq8092_rand_decode i_rand (
-     .adc_data(adc_data),
-     .adc_clk(adc_clk),
-     .adc_rand_enb(adc_rand_enb_s),
-    .adc_data_decoded(adc_part_decoded_data_s));
-            
-  axi_adaq8092_apb_decode i_apb (
-     .adc_data(adc_part_decoded_data_s),
-     .adc_clk(adc_clk),
-     .adc_abp_enb(adc_abp_enb_s),
-     .adc_data_decoded(adc_decoded_data_s));
-         
-  axi_adaq8092_pnmon i_pnmon (
-    .adc_clk (adc_clk),
-    .adc_data (adc_decoded_data_s),
-    .adc_pn_oos (adc_pn_oos_s),
-    .adc_pn_err (adc_pn_err_s),
-    .adc_pnseq_sel (adc_pnseq_sel_s));
-
+       
   generate
   if (DATAPATH_DISABLE == 1) begin
-  assign adc_dfmt_data_s = {2'b0 , adc_decoded_data_s};
+  assign adc_dfmt_data_s = {2'b0 , adc_data};
   end else begin
   ad_datafmt #(.DATA_WIDTH(14)) i_ad_datafmt (
     .clk (adc_clk),
     .valid (1'b1),
-    .data (adc_decoded_data_s),
+    .data (adc_data),
     .valid_out (),
     .data_out (adc_dfmt_data_s),
     .dfmt_enable (adc_dfmt_enable_s),
@@ -154,8 +125,6 @@ module axi_adaq8092_channel #(
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_enable (adc_enable),
-    .adc_abp_enable(adc_abp_enb_s),
-    .adc_rand_enable(adc_rand_enb_s),
     .adc_iqcor_enb (),
     .adc_dcfilt_enb (adc_dcfilt_enb_s),
     .adc_dfmt_se (adc_dfmt_se_s),
@@ -165,10 +134,10 @@ module axi_adaq8092_channel #(
     .adc_dcfilt_coeff (adc_dcfilt_coeff_s),
     .adc_iqcor_coeff_1 (),
     .adc_iqcor_coeff_2 (),
-    .adc_pnseq_sel (adc_pnseq_sel_s),
+    .adc_pnseq_sel (),
     .adc_data_sel (),
-    .adc_pn_err (adc_pn_err_s),
-    .adc_pn_oos (adc_pn_oos_s),
+    .adc_pn_err (),
+    .adc_pn_oos (),
     .adc_or (adc_or),
     .up_adc_pn_err (up_adc_pn_err),
     .up_adc_pn_oos (up_adc_pn_oos),

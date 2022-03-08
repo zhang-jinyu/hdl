@@ -108,7 +108,7 @@ module axi_adaq8092 #(
   reg     [31:0]  up_rdata = 'd0;
   reg             up_wack = 'd0;
   reg             up_rack = 'd0;
- 
+  
   // internal clocks & resets
 
   wire            up_rstn;
@@ -118,8 +118,7 @@ module axi_adaq8092 #(
   // internal signals
 
   wire            adc_or_s;
-  wire   [13:0]   adc_data_s_1;
-  wire   [13:0]   adc_data_s_2;
+  wire   [27:0]   adc_data_s;
   wire    [1:0]   up_status_pn_err_s;  //2 CHANNELS 
   wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
   wire    [1:0]   up_status_or_s;      //2 CHANNELS
@@ -136,12 +135,16 @@ module axi_adaq8092 #(
   wire    [13:0]  up_waddr_s;
   wire    [31:0]  up_wdata_s;
   wire            up_rreq_s;
+  wire    [13:0]  adc_decoded_data_s_1;
+  wire    [13:0]  adc_decoded_data_s_2;
+  wire    [27:0]  adc_part_decoded_data_s;
+  wire    [7:0]   adc_custom_control_s;
 
   // signal name changes
 
   assign up_clk = s_axi_aclk;
   assign up_rstn = s_axi_aresetn;
- 
+  assign adc_valid = 1'b1;
  
   // processor read interface
 
@@ -161,6 +164,7 @@ module axi_adaq8092 #(
       up_rack <=   up_rack_s[0] | up_rack_s[1]  | up_rack_s[2]  | up_rack_s[3];
       up_wack <=   up_wack_s[0] | up_wack_s[1]  | up_wack_s[2]  | up_wack_s[3];
       
+      
     end
   end
 
@@ -172,11 +176,11 @@ module axi_adaq8092 #(
   i_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
-    .adc_data (adc_data_s_1),
+    .adc_data (adc_decoded_data_s_1),
     .adc_or (adc_or_s),
     .adc_dcfilter_data_out (adc_data_channel1),
     .adc_enable (adc_enable_1),
-    .adc_valid (adc_valid),
+    .adc_valid (),
     .up_adc_pn_err (up_status_pn_err_s[0]),
     .up_adc_pn_oos (up_status_pn_oos_s[0]),
     .up_adc_or (up_status_or_s[0]),
@@ -200,11 +204,11 @@ module axi_adaq8092 #(
   i_channel_2 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
-    .adc_data (adc_data_s_2),
+    .adc_data (adc_decoded_data_s_2),
     .adc_or (adc_or_s),
     .adc_dcfilter_data_out (adc_data_channel2),
     .adc_enable (adc_enable_2),
-    .adc_valid (adc_valid),
+    .adc_valid (),
     .up_adc_pn_err (up_status_pn_err_s[1]),
     .up_adc_pn_oos (up_status_pn_oos_s[1]),
     .up_adc_or (up_status_or_s[1]),
@@ -220,7 +224,27 @@ module axi_adaq8092 #(
     .up_rack (up_rack_s[1]));
 
   // ADC interface
-
+  
+  my_ila i_ila (
+    .clk(adc_clk),
+    .probe0( adc_decoded_data_s_1),
+    .probe1( adc_decoded_data_s_2));
+  
+  
+  
+  
+     axi_adaq8092_rand_decode i_rand (
+     .adc_data(adc_data_s),
+     .adc_clk(adc_clk),
+     .adc_rand_enb(adc_custom_control_s[0]),
+    .adc_data_decoded(adc_part_decoded_data_s));
+            
+  axi_adaq8092_apb_decode i_apb (
+     .adc_data(adc_part_decoded_data_s),
+     .adc_clk(adc_clk),
+     .adc_abp_enb(adc_custom_control_s[1]),
+     .adc_data_decoded({adc_decoded_data_s_2,adc_decoded_data_s_1}));
+  
   axi_adaq8092_if #(
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .IO_DELAY_GROUP (IO_DELAY_GROUP))
@@ -232,7 +256,7 @@ module axi_adaq8092 #(
     .adc_or_in_p (adc_or_in_p),
     .adc_or_in_n (adc_or_in_n),
     .adc_clk (adc_clk),
-    .adc_data({adc_data_s_2,adc_data_s_1}),
+    .adc_data(adc_data_s),
     .adc_or(adc_or_s),
     .adc_status (adc_status_s),
     .up_clk (up_clk),
@@ -281,6 +305,7 @@ module axi_adaq8092 #(
     .mmcm_rst (),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
+    .adc_custom_control(adc_custom_control_s),
     .adc_r1_mode (),
     .adc_ddr_edgesel (),
     .adc_pin_mode (),
