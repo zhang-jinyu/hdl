@@ -225,14 +225,6 @@ module axi_adaq8092 #(
 
   // ADC interface
   
-  my_ila i_ila (
-    .clk(adc_clk),
-    .probe0( adc_decoded_data_s_1),
-    .probe1( adc_decoded_data_s_2));
-  
-  
-  
-  
      axi_adaq8092_rand_decode i_rand (
      .adc_data(adc_data_s),
      .adc_clk(adc_clk),
