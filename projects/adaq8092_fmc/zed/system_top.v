@@ -134,6 +134,7 @@ wire    [ 2:0]  spi1_csn;
 wire            spi1_clk;
 wire            spi1_mosi;
 wire            spi1_miso;
+
 wire    [ 1:0]  iic_mux_scl_i_s;
 wire    [ 1:0]  iic_mux_scl_o_s;
 wire            iic_mux_scl_t_s;
@@ -154,8 +155,6 @@ assign adc_pd2 = gpio_o[34];
 assign adc_pd1 = gpio_o[33];
 assign en_1p8 = gpio_o[35];
 assign gpio_i[32] = adc_par_ser;
-
-
 
 ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
   .dio_i (gpio_o[14:0]),

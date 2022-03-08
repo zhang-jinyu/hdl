@@ -57,6 +57,7 @@ module axi_adaq8092_rand_decode(
     for (i = 1; i <= 13; i = i + 1) begin
       adc_data_decoded_s[i]= adc_data[i] ^ adc_data[0];
     end
+    
     for (i = 15; i <= 27; i = i + 1) begin
       adc_data_decoded_s[i]= adc_data[i] ^ adc_data[14];
     end

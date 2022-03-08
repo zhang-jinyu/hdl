@@ -50,13 +50,10 @@ module axi_adaq8092 #(
 
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
-
   input       [ 6:0]     adc_data_in1_p,
   input       [ 6:0]     adc_data_in1_n,
- 
   input       [ 6:0]     adc_data_in2_p,
   input       [ 6:0]     adc_data_in2_n,
-
   input                   adc_or_in_p,
   input                   adc_or_in_n,
 
@@ -102,8 +99,6 @@ module axi_adaq8092 #(
 
   // internal registers
 
-  reg             up_status_pn_err = 'd0;
-  reg             up_status_pn_oos = 'd0;
   reg             up_status_or = 'd0;
   reg     [31:0]  up_rdata = 'd0;
   reg             up_wack = 'd0;
@@ -119,8 +114,6 @@ module axi_adaq8092 #(
 
   wire            adc_or_s;
   wire   [27:0]   adc_data_s;
-  wire    [1:0]   up_status_pn_err_s;  //2 CHANNELS 
-  wire    [1:0]   up_status_pn_oos_s;  //2 CHANNELS
   wire    [1:0]   up_status_or_s;      //2 CHANNELS
   wire            adc_status_s;
   wire    [14:0]  up_dld_s;
@@ -150,21 +143,15 @@ module axi_adaq8092 #(
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
-      up_status_pn_err <= 'd0;
-      up_status_pn_oos <= 'd0;
       up_status_or <= 'd0;
       up_rdata <= 'd0;
       up_rack <= 'd0;
       up_wack <= 'd0;
     end else begin
-      up_status_pn_err <= up_status_pn_err_s;
-      up_status_pn_oos <= up_status_pn_oos_s;
       up_status_or <= up_status_or_s;
       up_rdata <= up_rdata_s[0] | up_rdata_s[1] | up_rdata_s[2] | up_rdata_s[3];
       up_rack <=   up_rack_s[0] | up_rack_s[1]  | up_rack_s[2]  | up_rack_s[3];
-      up_wack <=   up_wack_s[0] | up_wack_s[1]  | up_wack_s[2]  | up_wack_s[3];
-      
-      
+      up_wack <=   up_wack_s[0] | up_wack_s[1]  | up_wack_s[2]  | up_wack_s[3]; 
     end
   end
 
@@ -181,8 +168,6 @@ module axi_adaq8092 #(
     .adc_dcfilter_data_out (adc_data_channel1),
     .adc_enable (adc_enable_1),
     .adc_valid (),
-    .up_adc_pn_err (up_status_pn_err_s[0]),
-    .up_adc_pn_oos (up_status_pn_oos_s[0]),
     .up_adc_or (up_status_or_s[0]),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
@@ -209,8 +194,6 @@ module axi_adaq8092 #(
     .adc_dcfilter_data_out (adc_data_channel2),
     .adc_enable (adc_enable_2),
     .adc_valid (),
-    .up_adc_pn_err (up_status_pn_err_s[1]),
-    .up_adc_pn_oos (up_status_pn_oos_s[1]),
     .up_adc_or (up_status_or_s[1]),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
@@ -312,9 +295,9 @@ module axi_adaq8092 #(
     .up_pps_status(1'd0),
     .up_pps_irq_mask(),
     .up_adc_ce (),
-    .up_status_pn_err (up_status_pn_err),
-    .up_status_pn_oos (up_status_pn_oos),
-    .up_status_or (up_status_or),
+    .up_status_pn_err (),
+    .up_status_pn_oos (),
+    .up_status_or (),
     .up_drp_sel (),
     .up_drp_wr (),
     .up_drp_addr (),

@@ -53,8 +53,6 @@ module axi_adaq8092_channel #(
   output      [15:0]      adc_dcfilter_data_out,
   output                  adc_valid,
   output                  adc_enable,
-  output                  up_adc_pn_err,
-  output                  up_adc_pn_oos,
   output                  up_adc_or,
 
   // processor interface
@@ -139,8 +137,8 @@ module axi_adaq8092_channel #(
     .adc_pn_err (),
     .adc_pn_oos (),
     .adc_or (adc_or),
-    .up_adc_pn_err (up_adc_pn_err),
-    .up_adc_pn_oos (up_adc_pn_oos),
+    .up_adc_pn_err (),
+    .up_adc_pn_oos (),
     .up_adc_or (up_adc_or),
     .up_usr_datatype_be (),
     .up_usr_datatype_signed (),

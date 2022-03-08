@@ -43,9 +43,14 @@ module axi_adaq8092_apb_decode(
   input                  adc_abp_enb,
   output     [27:0]      adc_data_decoded);
 
-  integer i;
+  // internal registers 
+ 
   reg        [27:0]      adc_data_decoded_s;
-  
+
+  //internal variable
+
+  integer i;
+
   assign adc_data_decoded = adc_abp_enb ? adc_data_decoded_s : adc_data ;
 
   always @(posedge adc_clk) begin 

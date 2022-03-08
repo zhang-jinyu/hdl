@@ -43,7 +43,7 @@ module axi_adaq8092_if #(
   parameter   DELAY_REFCLK_FREQUENCY = 200) (
 
   // adc interface (clk, data, over-range)
-  // nominal clock 125 MHz, up to 300 MHz
+  // nominal clock 80 MHz, up to 105 MHz
 
   input                   adc_clk_in_p,
   input                   adc_clk_in_n,
@@ -68,8 +68,6 @@ module axi_adaq8092_if #(
   input                   delay_clk,
   input                   delay_rst,
   output                  delay_locked);
-
-
 
 
   // internal signals
