@@ -11,7 +11,6 @@ adi_ip_files axi_adaq8092 [list \
   "$ad_hdl_dir/library/xilinx/common/ad_data_in.v" \
   "$ad_hdl_dir/library/xilinx/common/ad_dcfilter.v" \
   "$ad_hdl_dir/library/common/ad_datafmt.v" \
-  "$ad_hdl_dir/library/common/ad_pnmon.v" \
   "$ad_hdl_dir/library/common/up_xfer_status.v" \
   "$ad_hdl_dir/library/common/up_xfer_cntrl.v" \
   "$ad_hdl_dir/library/common/up_clock_mon.v" \
@@ -23,7 +22,6 @@ adi_ip_files axi_adaq8092 [list \
   "$ad_hdl_dir/library/xilinx/common/ad_rst_constr.xdc" \
   "$ad_hdl_dir/library/xilinx/common/up_xfer_status_constr.xdc" \
   "$ad_hdl_dir/library/xilinx/common/up_clock_mon_constr.xdc" \
-  "axi_adaq8092_pnmon.v" \
   "axi_adaq8092_if.v" \
   "axi_adaq8092_channel.v" \
   "axi_adaq8092_apb_decode.v"\

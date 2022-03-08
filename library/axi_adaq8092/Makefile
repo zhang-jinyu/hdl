@@ -7,7 +7,6 @@
 LIBRARY_NAME := axi_adaq8092
 
 GENERIC_DEPS += ../common/ad_datafmt.v
-GENERIC_DEPS += ../common/ad_pnmon.v
 GENERIC_DEPS += ../common/ad_rst.v
 GENERIC_DEPS += ../common/up_adc_channel.v
 GENERIC_DEPS += ../common/up_adc_common.v
@@ -17,12 +16,10 @@ GENERIC_DEPS += ../common/up_delay_cntrl.v
 GENERIC_DEPS += ../common/up_xfer_cntrl.v
 GENERIC_DEPS += ../common/up_xfer_status.v
 GENERIC_DEPS += axi_adaq8092.v
+GENERIC_DEPS += axi_adaq8092_apb_decode.v
 GENERIC_DEPS += axi_adaq8092_channel.v
 GENERIC_DEPS += axi_adaq8092_if.v
-GENERIC_DEPS += axi_adaq8092_pnmon.v
 GENERIC_DEPS += axi_adaq8092_rand_decode.v
-GENERIC_DEPS += axi_adaq8092_apb_decode.v
-
 
 XILINX_DEPS += ../xilinx/common/ad_data_clk.v
 XILINX_DEPS += ../xilinx/common/ad_data_in.v
