@@ -123,7 +123,7 @@ ad_ip_parameter dma_clk_generator CONFIG.PRIM_SOURCE No_buffer
 ad_connect $sys_cpu_clk dma_clk_generator/clk_in1
 ad_connect $sys_cpu_resetn dma_clk_generator/resetn
 
-ad_disconnect sys_250m_clk sys_ps8/pl_clk1
+ad_disconnect $sys_dma_clk $sys_dma_clk_source
 
 ad_connect $sys_dma_clk dma_clk_generator/clk_out1
 ad_connect axi_ad9083_rx_dma/fifo_wr util_ad9083_rx_cpack/packed_fifo_wr

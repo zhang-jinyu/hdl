@@ -88,6 +88,8 @@ set sys_cpu_clk            [get_bd_nets sys_cpu_clk]
 set sys_dma_clk            [get_bd_nets sys_250m_clk]
 set sys_iodelay_clk        [get_bd_nets sys_500m_clk]
 
+set sys_dma_clk_source     sys_ps8/pl_clk1
+
 set  sys_cpu_reset         [get_bd_nets sys_cpu_reset]
 set  sys_cpu_resetn        [get_bd_nets sys_cpu_resetn]
 set  sys_dma_reset         [get_bd_nets sys_250m_reset]
